@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block login %}
+    <div class="row">
+        {% if login_error %}
+            <div class="row delete_message">
+                <div class=" login-div warning-message">
+                    <div class="row">
+                        <div class="close_win">
+                            <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
+                        </div>
+                    </div>
+                    <p id="error_login">Пользователя с такими именем не существует, либо пароль указан неверно.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div>
+            <div class="border_style_login"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="login-div">
+                <p class="nov_ob2 detail_title"><span class="title_details_list">Вход</span></p>
+                <form class="" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="inp">
+                        <input type="text" id="id_username_login" name="username" placeholder="Имя пользователя" >
+                    </div>
+                    <div class="inp">
+                        <input type="password" id="id_password_login" name="password" placeholder="Пароль">
+                    </div>
+                    <div class="tr_item_item_image">
+                        <input id="id_remember_me" name="remember_me" type="checkbox">
+                        <label class="label_remember">Не выходить из системы</label>
+                        <label class="label_check" for="image-clear_id"><img class="check_image" src="{% static "img/check_off.png" %}"></label>
+                    </div>
+                    <div class="button_form">
+                        <div class="bt">
+                            <div class="col-sm-offset-2" id="div_btn_login">
+                                <button type="submit" class="btn btn-primary" value="login" id="btn_login">Войти</button>
+                                <a href="{% url 'register' %}"><button type="button" class="btn btn-success btn-block reg" id="sign_up_btn">Регистрация</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/checkBox.js" %}"></script>
+    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+    <script src="{% static "js/Own/deleteMessage.js" %}"></script>
+{% endblock %}

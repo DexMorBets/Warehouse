@@ -1,0 +1,34 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row edit_div">
+        <div class="border_style"></div>
+    </div>
+    <div class="row edit_div">
+        <div class="main">
+            <div class="nov_ob2 detail_title"><p><span class="title_details_list">Новая категория</span></p></div>
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="inp_detail">
+                        {{ field.errors }}
+                        {% if field == form.price %}
+                            {{ field }} <span class="symbol">$</span>
+                        {% elif field == form.count %}
+                            {{ field }} <span class="symbol">шт.</span>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="button_form">
+                    <div class="bt">
+                        <button type="submit" class="btn btn-primary reg" value="save" id="btn_login1">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="{% static "js/Own/blur.js" %}"></script>
+    </div>
+{% endblock content %}

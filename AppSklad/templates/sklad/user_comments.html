@@ -1,0 +1,36 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row edit_div">
+        {% if userr.comments.all %}
+            {% csrf_token %}
+            {% for comment in userr.comments.all %}
+                <div class="row edit_div">
+                    <div class="main_item_edit comment_published clearfix">
+                        <a href="{% url 'user_profile' username=comment.author.username %}">
+                            <div class="comment_author">
+                                <span class="hide_panel">{{ comment.pk }}</span>
+                                <span>{{ comment.author.username }}</span>
+                                <div class="comment_avatar">
+                                    {% if comment.author.profile.image %}
+                                        <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author.profile.image}}" alt="Avatar">
+                                    {% else %}
+                                        <img class="comment_avatar_img" src="{% static "img/Avatar.png"%}" alt="Avatar">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                        <div class="comment_item"><span>#<a class="commen_item_a" href="{% url "item_detail" pk=comment.item.pk %}">{{ comment.item.category.title }} {{ comment.item.title }}</a></span></div>
+                        <div class="comment_date"><span>{{ comment.created_date }}</span></div>
+                        <div class="comment_text">{{ comment.text }}</div>
+                        {% if comment.author == user %}
+                            <div class="comment_delete"><span class="category_delete_text">Удалить</span></div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <script src="{% static "js/Own/deleteUserComment.js" %}"></script>
+{% endblock %}

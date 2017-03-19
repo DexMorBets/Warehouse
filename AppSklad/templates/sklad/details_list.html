@@ -1,0 +1,94 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="border_style"></div>
+    </div>
+    <div class="row">
+        <div class="main">
+            <div class="">
+                <div class="nov_ob2 detail_title"><p><span class="title_details_list">Детали на складе</span></p></div>
+                <form class="form-horizontal" method="get" action="{% url 'details_list' %}">
+                {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text"  id="id_title_search" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название детали" >
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" value="search" id="btn_search">Найти</button>
+                        </span>
+                    </div>
+                </form>
+                {% if new_details %}
+                    {% if pg %}
+                        <div class="panel panel-default panel-overflow">
+                    {% else %}
+                        <div class="panel panel-default panel-overflow search-scroll">
+                    {% endif %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Цвет</th>
+                                    <th>Стоимость <span class="symbol">$</span></th>
+                                    <th>Количество <span class="symbol">шт.</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detail in new_details %}
+                                    <tr class="act">
+                                        <td><a href="{% url 'details_detail' pk=detail.pk %}">{{ detail.title }}</a></td>
+                                        <td>{{ detail.category.title }}</td>
+                                        <td>{% if detail.color %}{{ detail.color.title }}{% else %}Стандартный{% endif %}
+                                            <div style="background-color: {{ detail.color.code }}" class="color_label_list"></div>
+                                        </td>
+                                        <td>{{ detail.price }}</td>
+                                        <td>{{ detail.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="detail_div">
+                        <span>{% if not pg %}Деталей с таким названием не найдено.{% else %}Еще не добавлено ни одной детали.{% endif %}</span>
+                    </div>
+                {% endif %}
+                {% if user.is_superuser %}
+                <div class="row">
+                    <div class="main_l main">
+                        <h1 class="butt"><a class="btn btn-1" href="{% url 'detail_new' %}">Добавить деталь</a></h1>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if new_details and pg and count > 10 %}
+        <div class="row">
+            <div class="pg col-lg-12 col-md-12 col-sm-12 col-xs-12 columns">
+                <ul class="pagination">
+                    {% if new_details.has_previous %}
+                        <li class="arrow"><a href="/details/page/{{ new_details.previous_page_number }}/">&laquo;</a></li>
+                    {% else %}
+                        <li class="arrow disabled"><a>&laquo;</a></li>
+                    {% endif %}
+                    {% for page in new_details.paginator.page_range %}
+                        {% if page == new_details.number %}
+                            <li class="current"><a href="/details/page/{{ page }}/">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="/details/page/{{ page }}/">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if new_details.has_next %}
+                        <li class="arrow"><a href="/details/page/{{ new_details.next_page_number }}/">&raquo;</a></li>
+                    {% else %}
+                        <li class="arrow disabled"><a>&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}"></script>
+{% endblock content %}

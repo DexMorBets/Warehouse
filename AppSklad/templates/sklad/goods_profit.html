@@ -1,0 +1,72 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="border_style"></div>
+    <div class="row">
+        <div  class="main clearfix">
+            <div class="nov_ob2" style=""><p class="items_title"><span class="title_details_list">{% if category %}{{ category }}{% else %}Весь ассортимент{% endif %}</span></p></div>
+            <div>
+                <div class="panel panel-default">
+                    <table class="table table-scroll">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Количество <span class="symbol">шт.</span></th>
+                                <th>Затраты <span class="symbol">$</span></th>
+                                <th>Получено <span class="symbol">$</span></th>
+                                <th>Прибыль <span class="symbol">$</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in list_of_items %}
+                                <tr class="act">
+                                    <td><a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a></td>
+                                    <td>{{ item.count }}</td>
+                                    <td>{{ item.expenses }}</td>
+                                    <td>{{ item.received }}</td>
+                                    <td>{{ item.profit }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <span class="panel-profit"><strong>Прибыль:</strong> {{ sum_profit }} <span class="symbol">$</span></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="border_style"></div>
+    </div>
+    <div class="row">
+        <div  class="main">
+            <div class="nov_ob2" style=""><p class="items_title"><span class="title_details_list">Список оставшихся деталей</span></p></div>
+            <div>
+                <div class="panel panel-default  panel-scroll-goods">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Категория</th>
+                                <th>Количество <span class="symbol">шт.</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detail in details %}
+                                <tr class="act">
+                                    <td><a href="{% url 'details_detail' pk=detail.pk %}">{{ detail.title }}</a></td>
+                                    <td>{{ detail.category }}</td>
+                                    <td>{{ detail.count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/selectRow.js" %}"></script>
+{% endblock content %}

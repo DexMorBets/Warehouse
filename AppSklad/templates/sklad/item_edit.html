@@ -1,0 +1,87 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row edit_div">
+        <div class="border_style"></div>
+    </div>
+    <div class="row edit_div">
+        <div class="main_item_edit">
+            <div class="nov_ob2 detail_title"><p><span class="title_details_list">{% if formset %}Редактирование товара{% else %}Новый товар в категории <span class="category_title">{{ category }}</span>{% endif %}</span></p></div>
+            {% if item_image %}
+                <div class="avatar_div">
+                    <div class="image_block">
+                        <img class="image" src="{% static "img/"%}{{item_image}}" alt="Avatar">
+                    </div>
+                </div>
+            {% endif %}
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field.errors }}
+                    {% if field.name != "image" %}
+                        {% if field.name != "author" %}
+                            <div class="inp_detail">
+                                {{ field }} {% if field.name == 'price' %} <span class="symbol">$</span>{% endif %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="tr_item_item_image">
+                            {% if field.value %}
+                                <input id="image-clear_id" name="image-clear" type="checkbox">
+                                <label class="label_image">Удалить изображение</label>
+                                <label class="label_check" for="image-clear_id"><img class="check_image" src="{% static "img/check_off.png" %}"></label>
+                                <br>
+                            {% endif %}
+                            <div class="button_form">
+                                <div class="bt">
+                                    <label class="btn btn_item_edit password_change_save bt1 btn_avatar" for="id_image">Загрузить изображение</label>
+                                    <input id="id_image" name="image" type="file">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if formset %}
+                    <div class="nov_ob2 detail_title detail_title_d">
+                        <p><span class="title_details_list">Состоит из деталей:</span></p>
+                    </div>
+                {% endif %}
+                {{ formset.management_form }}
+                {% for f in formset.forms %}
+                    <div class="inp_detail inp_detail_d clearfix">
+                        {% for field in f %}
+                            {{ field.errors }}
+                            {{ field }}
+                            {% if field.name == "DELETE" %}
+                                <label class="trash" for="{{ field.id_for_label}}"><span class="glyphicon glyphicon-trash"></span></label>
+                            {% endif %}
+{#                            {{ field.id_for_label}}#}
+                        {% endfor %}
+                    <div class="detail_input_delete"><span class="detail_input_delete_text">-</span></div>
+                    </div>
+                {% endfor %}
+                {% if formset %}
+                    <div class="button_form">
+                {% endif %}
+                    {% if formset %}
+                        <div class="bt_item_edit">
+                            <a class="btn btn_item_edit bt1">Добавить деталь</a>
+                        </div>
+                    {% endif %}
+                    <div class="bt">
+                        <button type="submit" class="btn btn-primary reg" value="save" id="btn_login1">{% if formset %}Сохранить{% else %}Добавить детали{% endif %}</button>
+                    </div>
+                {% if formset %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        <script src="{% static "js/Own/blur.js" %}"></script>
+        <script src="{% static "js/Own/checkBox.js" %}"></script>
+        <script src="{% static "js/Own/showDetail.js" %}"></script>
+        <script src="{% static "js/Own/deleteDetail.js" %}"></script>
+        <script src="{% static "js/Own/selectOption.js" %}"></script>
+        <script src="{% static "js/Own/selectDetailPlaceholder.js" %}"></script>
+    </div>
+{% endblock content %}

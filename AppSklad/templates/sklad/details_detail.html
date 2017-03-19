@@ -1,0 +1,34 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row edit_div">
+        <div class="border_style"></div>
+    </div>
+    <div class="row edit_div">
+        <div class="main">
+            <div class="nov_ob2 detail_title">
+                {% if user.is_superuser %}
+                    <a class='det_ch' href="{% url 'detail_edit' pk=detail.pk %}" class="top-menu log-button"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
+                <p><span class="title_details_list">{{ detail.title }}</span></p>
+            </div>
+            {% if detail.image %}
+                <div class="avatar_div">
+                    <div class="image_block">
+                        <img class="image" src="{% static "img/"%}{{detail.image}}" alt="Avatar">
+                    </div>
+                </div>
+            {% endif %}
+            <div class="tr_detail"><p><strong>Категория:</strong> {{ detail.category.title_plural }}</p></div>
+            <div class="tr_detail"><div style="background-color: {{ detail.color.code }}" class="color_label_edit"></div><p><strong>Цвет:</strong> {{ detail.color.title }}</p></div>
+            <div class="tr_detail"><p><strong>Цена:</strong> {{ detail.price }} <span class="symbol">$</span></p></div>
+            <div class="tr_detail"><p><strong>Количество:</strong> {{ detail.count }} <span class="symbol">шт.</span></p></div>
+            <div class="button_form">
+                {% if user.is_superuser %}
+                    <a class='delete_button' href="{% url 'detail_delete' pk=detail.pk %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

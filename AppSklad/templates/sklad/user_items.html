@@ -1,0 +1,103 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    {% if count > 0 %}
+        <div class="row">
+            <div  class="main block_margin">
+                <div class="nov_ob2"><p class="items_title">Непроверенные</p><span class="items_title_count">{{ count }}</span></div>
+                    {% if count > 0 %}
+                        <div class="hide_panel">
+                            <div class="panel panel-default panel-scroll-goods">
+                                <table class="table table-scroll">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Цена <span class="symbol">$</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in publiched_items %}
+                                            <tr class="act">
+                                                <td>
+                                                    <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                                    {% if item.comments.all.count > 0 %}
+                                                        <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ item.price }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="goods_arrow_div arrow">
+                            <img class="goods_arrow" src="{% static "img/Arrow.png" %}" alt="Arrow">
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    {% for category in categories %}
+        {% if category.item_count > 0%}
+            <div class="row">
+                <div  class="main block_margin">
+                    <div class="nov_ob2"><p class="items_title">{{ category.title_plural }}</p><span class="items_title_count">{{ category.item_count }}</span></div>
+                    {% if category.item_count > 0 %}
+                        {% csrf_token %}
+                        <div class="hide_panel">
+                            <div class="panel panel-default panel-scroll-goods">
+                                <table class="table table-scroll">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Затраты <span class="symbol">$</span></th>
+                                            <th>Цена <span class="symbol">$</span></th>
+                                            <th>Прибыль <span class="symbol">$</span></th>
+                                            <th>Доступно <span class="symbol">шт.</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in all_items %}
+                                            {% if item.category == category%}
+                                                <tr class="act">
+                                                    <td>
+                                                        <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                                        {% if item.comments.all.count > 0 %}
+                                                            <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ item.expenses }}</td>
+                                                    <td>{{ item.price }}</td>
+                                                    <td>{{ item.profit }}</td>
+                                                    <td>{{ item.available }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% if user.is_authenticated %}
+                                <h1 class="butt"><a class="btn btn_item" href="{% url 'item_new' category=category.title_plural %}">Добавить товар</a></h1>
+                            {% endif %}
+                        </div>
+                        <div class="goods_arrow_div arrow">
+                            <img class="goods_arrow" src="{% static "img/Arrow.png" %}" alt="Arrow">
+                        </div>
+                    {% else %}
+
+                {% if user.is_superuser %}
+                    <div class="category_delete"><span class="category_delete_text">Удалить</span></div>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <div class="category_add"><span class="category_add_text">Добавить</span></div>
+                {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <script src="{% static "js/Own/goodsFadeIn.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}"></script>
+{% endblock content %}

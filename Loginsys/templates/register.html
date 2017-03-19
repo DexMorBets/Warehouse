@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        {% if form.errors %}
+            <div class="row delete_message">
+                <div class=" login-div warning-message">
+                    <div class="row">
+                        <div class="close_win">
+                            <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
+                        </div>
+                    </div>
+                    <p id="error_login">Такой пользователь существует, либо пароли не совпадают.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div>
+            <div class="border_style_login"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="login-div">
+                <p class="nov_ob2 detail_title">Регистрация</p>
+                <form class="form-horizontal" method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+
+                        <div class="inp">
+                            <input type="text" id="id_username_login" autocomplete="off" name="username" placeholder="Имя пользователя" >
+                        </div>
+
+                        <div class="inp">
+                            <input type="password"  id="id_password_login" autocomplete="off" name="password1" placeholder="Пароль">
+                        </div>
+
+                        <div class="inp">
+                            <input type="password" id="id_password_login" autocomplete="off" name="password2" placeholder="Подтверждение пароля">
+                        </div>
+                    <div class="button_form">
+                        <div class="bt">
+                            <div class="col-sm-offset-2" id="div_btn_login">
+                                <button type="submit" class="btn btn-primary reg" value="register" id="btn_login1">Зарегистрироваться</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+    <script src="{% static "js/Own/deleteMessage.js" %}"></script>
+{% endblock %}

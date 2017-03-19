@@ -1,0 +1,123 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <form class="form-horizontal search_mar" method="get" action="{% url 'goods_list' %}">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" id="id_title_search2" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название товара" >
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default search_bt" value="search" id="btn_search">Найти</button>
+            </span>
+        </div>
+    </form>
+    {% if user.is_superuser and count > 0 %}
+        <div class="row">
+            <div  class="main block_margin">
+                <div class="nov_ob2"><p class="items_title">Непроверенные</p><span class="items_title_count">{{ count }}</span></div>
+                    {% if count > 0 %}
+                        <div class="hide_panel">
+                            <div class="panel panel-default panel-scroll-goods">
+                                <table class="table table-scroll">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Цена <span class="symbol">$</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in publiched_items %}
+                                            <tr class="act">
+                                                <td>
+                                                    <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                                    {% if item.comments.all.count > 0 %}
+                                                        <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ item.price }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="goods_arrow_div arrow">
+                            <img class="goods_arrow" src="{% static "img/Arrow.png" %}" alt="Arrow">
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    {% for category in categories %}
+{#        {% if search == False %}#}
+            <div class="row">
+                <div  class="main block_margin">
+                    <div class="nov_ob2"><p class="items_title"><a href="{% url 'category_list' category_value=category.title_plural %}">{{ category.title_plural }}</a></p><span class="items_title_count">{{ category.item_count }}</span></div>
+                    {% if category.item_count > 0 %}
+                        {% csrf_token %}
+                        <div class="hide_panel">
+                            <div class="panel panel-default panel-scroll-goods">
+                                <table class="table table-scroll">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Затраты <span class="symbol">$</span></th>
+                                            <th>Цена <span class="symbol">$</span></th>
+                                            <th>Прибыль <span class="symbol">$</span></th>
+                                            <th>Доступно <span class="symbol">шт.</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in all_items %}
+                                            {% if item.category == category%}
+                                                <tr class="act">
+                                                    <td>
+                                                        <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                                        {% if item.comments.all.count > 0 %}
+                                                            <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ item.expenses }}</td>
+                                                    <td>{{ item.price }}</td>
+                                                    <td>{{ item.profit }}</td>
+                                                    <td>{{ item.available }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% if user.is_authenticated %}
+                                <h1 class="butt"><a class="btn btn_item" href="{% url 'item_new' category=category.title_plural %}">Добавить товар</a></h1>
+                            {% endif %}
+                            <h1 class="butt"><a class="btn btn_item btn_item_profit" href="{% url 'item_profit' category=category.title_plural %}">Расчитать максимальную прибыль</a></h1>
+                        </div>
+                        <div class="goods_arrow_div arrow">
+                            <img class="goods_arrow" src="{% static "img/Arrow.png" %}" alt="Arrow">
+                        </div>
+                    {% else %}
+
+                {% if user.is_superuser %}
+                    <div class="category_delete"><span class="category_delete_text">Удалить</span></div>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <div class="category_add"><span class="category_add_text">Добавить</span></div>
+                {% endif %}
+                {% endif %}
+                </div>
+            </div>
+{#        {% endif %}#}
+    {% endfor %}
+    {% if user.is_superuser %}
+        <div class="row">
+            <div class="main_l main">
+                <h1 class="butt"><a class="btn btn-1-back" href="{% url 'category_new' %}">Добавить категорию</a></h1>
+            </div>
+        </div>
+    {% endif %}
+    <script src="{% static "js/Own/goodsFadeIn.js" %}"></script>
+    <script src="{% static "js/Own/blurGoodslist.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}"></script>
+    <script src="{% static "js/Own/deleteCategory.js" %}"></script>
+    <script src="{% static "js/Own/addItem.js" %}"></script>
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="border_style"></div>
+    </div>
+    <div class="row">
+        <div class="main">
+            <div class="">
+                <div class="nov_ob2 detail_title"><p><span class="title_details_list">{{ category_value }}</span></p></div>
+                <form class="form-horizontal" method="get" action="{% url 'goods_list' %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text"  id="id_title_search" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название товара" >
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" value="search" id="btn_search">Найти</button>
+                        </span>
+                    </div>
+                </form>
+                {% if all_items %}
+                    <div class="panel panel-default panel-overflow search-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Затраты <span class="symbol">$</span></th>
+                                    <th>Цена <span class="symbol">$</span></th>
+                                    <th>Прибыль <span class="symbol">$</span></th>
+                                    <th>Доступно <span class="symbol">шт.</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in all_items %}
+                                    <tr class="act">
+                                        <td>
+                                            <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                            {% if item.comments.all.count > 0 %}
+                                                <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.expenses }}</td>
+                                        <td>{{ item.price }}</td>
+                                        <td>{{ item.profit }}</td>
+                                        <td>{{ item.available }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="detail_div">
+                        <span>{% if search %}Товара с таким названием не найдено.{% else %}Еще не добавлено ни одного товара.{% endif %}</span>
+                    </div>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <div class="row">
+                        <div class="main_l main">
+                            <h1 class="butt"><a class="btn btn-1" href="{% url 'item_new' category=category_value %}">Добавить товар</a></h1>
+                        </div>
+                        <div class="main_l main">
+                            <h1 class="butt"><a class="btn btn-1-profit" href="{% url 'item_profit' category=category_value %}">Расчитать максимальную прибыль</a></h1>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}"></script>
+{% endblock content %}

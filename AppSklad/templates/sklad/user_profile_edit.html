@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block login %}
+    {% if error %}
+    <div class="row">
+        <div class="content container">
+                <div class="row delete_message">
+                    <div class=" login-div warning-message">
+                        <div class="row">
+                            <div class="close_win">
+                                <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
+                            </div>
+                        </div>
+                        <p id="error_login">{{ error }}</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div>
+            <div class="border_style_login"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="login-div profile">
+                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p class="nov_ob2 detail_title"><span class="title_details_list">Информация</span></p>
+                    {% if user_image %}
+                    <div class="avatar_div">
+                        <div class="avatar_block">
+                            <img class="avatar" src="{% static "img/"%}{{user_image}}" alt="Avatar">
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% for a in form %}
+                        <div>
+                            <div class="tr_detail_item">
+                                {{ a }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for a in profile_form %}
+                            <div>
+                                {{ a.errors }}
+                                {% if a.name != "image" %}
+                                    <div class="tr_detail_item">
+                                        {{ a }}
+                                    </div>
+                                {% else %}
+                                    <div class="tr_detail_item_image">
+                                        {% if a.value %}
+                                            <input id="image-clear_id" name="image-clear" type="checkbox">
+                                            <label class="label_image">Удалить аватар</label>
+                                            <label class="label_check" for="image-clear_id"><img class="check_image" src="{% static "img/check_off.png" %}"></label>
+                                            <br>
+                                        {% endif %}
+                                        <div class="button_form">
+                                            <div class="bt">
+                                                <label class="btn btn_item_edit password_change_save bt1" for="id_image">Загрузить аватар</label>
+                                                <input id="id_image" name="image" type="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                    {% endfor %}
+                        <div class="bt">
+                            <button type="submit" class="btn btn_item_edit password_change_save bt1" value="save">Сохранить</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+    <script src="{% static "js/Own/checkBox.js" %}"></script>
+    <script src="{% static "js/Own/deleteMessage.js" %}"></script>
+{% endblock %}

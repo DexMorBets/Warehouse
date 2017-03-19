@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block login %}
+    <div class="row">
+        <div>
+            <div class="border_style_login"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="login-div clearfix">
+                {% if user_form.username.value == user.username %}
+                    <a class='det_ch' href="{% url 'user_edit' %}" class="top-menu log-button"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
+                <p class="nov_ob2 detail_title"><span class="title_details_list">Данные пользователя</span></p>
+                {% if user_object.comments.all %}
+                    <a class='det_ch1' href="{% url 'user_comments' username=user_form.username.value %}" class="top-menu log-button"><span class="glyphicon glyphicon-comment"><span class="comments_count">{{ user_object.comments.all.count }}</span></span></a>
+                {% endif %}
+                <div class="avatar_div">
+                        {% if profile_user.image.value %}
+                            <div class="avatar_block">
+                                <img class="avatar" src="{% static "img/"%}{{profile_user.image.value}}" alt="Avatar">
+                            </div>
+                        {% else %}
+                            <div class="avatar_default_block">
+                                <img class="avatar_default" src="{% static "img/Avatar.png"%}" alt="Avatar">
+                            </div>
+                        {% endif %}
+                </div>
+                {% if profile_user.last_seen %}
+                    <div>
+                         <div class="last_seen">
+                            <p class="last_seen_text">
+                                Последний раз был в сети: {{ profile_user.last_seen.value }}
+                            </p>
+                         </div>
+                    </div>
+                {% endif %}
+                <div>
+                     <div class="tr_detail_item">
+                        <p>
+                            <strong>Статус:</strong> {% if admin %} Администратор{% else %} Пользователь{% endif %}
+                        </p>
+                     </div>
+                </div>
+                {% for a in user_form %}
+                    <div>
+                        <div class="tr_detail_item">
+                            <p>
+                                <strong>{{ a.label }}:</strong> {% if a.value %}{{ a.value }}{% else %}-{% endif %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for a in profile_user %}
+                    {% if a.label != 'Image' and a.label != 'Запомнить' and a.label != 'remember' and a.label != 'Дата последнего посещения' and a.label != 'last_seen'%}
+                        <div>
+                            <div class="tr_detail_item">
+                                <p>
+                                    <strong>{{ a.label }}:</strong> {% if a.value %}{{ a.value }}{% else %}-{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="button_form">
+                    {% if user_object.items.all %}
+                        <div class="bt_item_edit">
+                            <a href="{% url 'user_items' username=user.username %}" class="btn btn_item_edit password_change user_items_bt bt1">Товары пользователя</a>
+                        </div>
+                    {% endif %}
+                    {% if user_form.username.value == user.username %}
+                        <div class="bt_item_edit">
+                            <a href="{% url 'change_password' %}" class="btn btn_item_edit password_change bt1">Сменить пароль</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+    <script src="{% static "js/Own/deleteMessage.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+*.pyc
+__pycache__
+Skladvenv
+SkladvenvLinux
+db.sqlite3
+.DS_Store
+.idea
+settings.py
+migrations

@@ -1,0 +1,58 @@
+{% extends 'sklad/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row edit_div">
+        <div class="border_style"></div>
+    </div>
+    <div class="row edit_div">
+        <div class="main">
+            <div class="nov_ob2 detail_title"><p><span class="title_details_list">{% if new %}Новая деталь{% else %}Редактирование детали{% endif %}</span></p></div>
+            {% if detail_image %}
+                <div class="avatar_div">
+                    <div class="image_block">
+                        <img class="image" src="{% static "img/"%}{{detail_image}}" alt="Avatar">
+                    </div>
+                </div>
+            {% endif %}
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.name != "image" %}
+                        <div class="inp_detail">
+                            {{ field.errors }}
+                            {% if field == form.price %}
+                                {{ field }} <span class="symbol">$</span>
+                            {% elif field == form.count %}
+                                {{ field }} <span class="symbol">шт.</span>
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="tr_item_item_image">
+                            {% if field.value %}
+                                <input id="image-clear_id" name="image-clear" type="checkbox">
+                                <label class="label_image">Удалить изображение</label>
+                                <label class="label_check" for="image-clear_id"><img class="check_image" src="{% static "img/check_off.png" %}"></label>
+                                <br>
+                            {% endif %}
+                            <div class="button_form">
+                                <div class="bt">
+                                    <label class="btn btn_item_edit password_change_save bt1 btn_avatar" for="id_image">Загрузить изображение</label>
+                                    <input id="id_image" name="image" type="file">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                    <div class="bt">
+                        <button type="submit" class="btn btn-primary reg" value="save" id="btn_login1">Сохранить</button>
+                    </div>
+            </form>
+        </div>
+        <script src="{% static "js/Own/blur.js" %}"></script>
+        <script src="{% static "js/Own/checkBox.js" %}"></script>
+        <script src="{% static "js/Own/selectPlaceholderDetail.js" %}"></script>
+    </div>
+{% endblock content %}
