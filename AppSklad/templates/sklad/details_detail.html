@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">1</div>
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
@@ -9,7 +10,9 @@
         <div class="main">
             <div class="nov_ob2 detail_title">
                 {% if user.is_superuser %}
-                    <a class='det_ch' href="{% url 'detail_edit' pk=detail.pk %}" class="top-menu log-button"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class='det_ch' href="{% url 'detail_edit' pk=detail.pk %}" class="top-menu log-button">
+                        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+                    </a>
                 {% endif %}
                 <p><span class="title_details_list">{{ detail.title }}</span></p>
             </div>
@@ -19,11 +22,25 @@
                         <img class="image" src="{% static "img/"%}{{detail.image}}" alt="Avatar">
                     </div>
                 </div>
+            {% else %}
+                <div class="avatar_div">
+                    <div class="image_block">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </div>
+                </div>
             {% endif %}
-            <div class="tr_detail"><p><strong>Категория:</strong> {{ detail.category.title_plural }}</p></div>
-            <div class="tr_detail"><div style="background-color: {{ detail.color.code }}" class="color_label_edit"></div><p><strong>Цвет:</strong> {{ detail.color.title }}</p></div>
-            <div class="tr_detail"><p><strong>Цена:</strong> {{ detail.price }} <span class="symbol">$</span></p></div>
-            <div class="tr_detail"><p><strong>Количество:</strong> {{ detail.count }} <span class="symbol">шт.</span></p></div>
+            <div class="tr_detail">
+                <p><strong>Категория</strong><p>{{ detail.category.title_plural }}</p></p>
+            </div>
+            <div class="tr_detail">
+                <p><strong>Цвет</strong><p>{% if detail.color.title %}{{ detail.color.title }}{% if detail.color.code %}<i style="color: {{ detail.color.code }};" class="fa fa-tint" aria-hidden="true"></i>{% endif %}{% else %}Стандартный{% endif %}</p></p>
+            </div>
+            <div class="tr_detail">
+                <p><strong>Цена</strong><p>{{ detail.price }} <span class="symbol">$</span></p></p>
+            </div>
+            <div class="tr_detail">
+                <p><strong>Количество</strong><p> {{ detail.count }} <span class="symbol">шт.</span></p></p>
+            </div>
             <div class="button_form">
                 {% if user.is_superuser %}
                     <a class='delete_button' href="{% url 'detail_delete' pk=detail.pk %}">Удалить</a>

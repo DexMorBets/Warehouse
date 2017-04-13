@@ -2,6 +2,13 @@
 {% load staticfiles %}
 
 {% block login %}
+    <div id="page" class="hide">4</div>
+    <style type="text/css">
+       .cd-dropdown, .cd-select,
+       .cd-dropdown ul li span {
+            width: 270px;
+       }
+    </style>
     {% if error %}
     <div class="row">
         <div class="content container">
@@ -75,7 +82,8 @@
             </div>
         </div>
     </div>
-    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+{#    <script src="{% static "js/Own/blurLogin.js" %}"></script>#}
     <script src="{% static "js/Own/checkBox.js" %}"></script>
     <script src="{% static "js/Own/deleteMessage.js" %}"></script>
+    <script src="{% static "js/Own/dropdown.js" %}"></script>
 {% endblock %}

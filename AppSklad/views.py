@@ -25,18 +25,17 @@ def details_list(request, page_number=1):
     sum_price = 0
     if request.user.is_authenticated():
         request.user.profile.last_seen = timezone.now()
-        request.user.profile.save()
+        request.user.profile.save(update_fields=['last_seen'])
     if request.GET and len(request.GET.get('title')) > 0:
         newuser_form = SearchForm(request.GET)
-        all_details = Detail.objects.filter(title__contains=request.GET.get('title'))
-        all_details.order_by('category__title', 'title')
+        all_details = Detail.objects.filter(title__contains=request.GET.get('title')).select_related('color').order_by('category__title', 'title')
         for i in all_details:
             sum_price += i.price * i.count
         args['form'] = newuser_form
         args['new_details'] = all_details
         args['pg'] = False
     else:
-        all_details = Detail.objects.all().order_by('category__title', 'title')
+        all_details = Detail.objects.all().select_related('color').order_by('category__title', 'title')
         for i in all_details:
             sum_price += i.price * i.count
         current_page = Paginator(all_details, 10)
@@ -69,16 +68,16 @@ def available_goods(item_details):         # функция расчёта ко�
 
 def goods_list(request, category_value=None):
     args = {}
-    if request.GET and len(request.GET.get('title')) > 0:
+    if request.GET and request.GET.get('title').count() > 0:
         new_form = SearchForm(request.GET)
         if category_value is None:
-            all_items = Item.objects.all().filter(publicate=True, title__contains=request.GET.get('title')).order_by("title")
+            all_items = Item.objects.all().select_related('category').filter(publicate=True, title__contains=request.GET.get('title')).order_by("title")
         else:
-            all_items = Item.objects.all().filter(publicate=True, category__title_plural=category_value, title__contains=request.GET.get('title')).order_by(
+            all_items = Item.objects.all().select_related('category').filter(publicate=True, category__title_plural=category_value, title__contains=request.GET.get('title')).order_by(
                 "title")
             args['category_value'] = category_value
         if category_value is None:
-            publiched_items = Item.objects.all().filter(publicate=False, title__contains=request.GET.get('title')).order_by("category", "title")
+            publiched_items = Item.objects.all().select_related('category').filter(publicate=False, title__contains=request.GET.get('title')).order_by("category", "title")
             count = publiched_items.count()
             args['publiched_items'] = publiched_items
             args['count'] = count
@@ -87,7 +86,7 @@ def goods_list(request, category_value=None):
         # получение данных о количестве товаров в каждой категории
         for category in categories:
             category.item_count = all_items.filter(category=category).distinct().count()
-            category.save()
+            category.save(update_fields=['item_count'])
 
         categories = [x for x in categories if x.item_count != 0]
         args['form'] = new_form
@@ -95,12 +94,12 @@ def goods_list(request, category_value=None):
         args['categories'] = categories
     else:
         if category_value is None:
-            all_items = Item.objects.all().filter(publicate=True).order_by("title")
+            all_items = Item.objects.all().select_related('category').filter(publicate=True).order_by("title")
         else:
-            all_items = Item.objects.all().filter(publicate=True, category__title_plural=category_value).order_by("title")
+            all_items = Item.objects.all().select_related('category').filter(publicate=True, category__title_plural=category_value).order_by("title")
             args['category_value'] = category_value
         if category_value is None:
-            publiched_items = Item.objects.all().filter(publicate=False).order_by("category", "title")
+            publiched_items = Item.objects.all().select_related('category').filter(publicate=False).order_by("category", "title")
             count = publiched_items.count()
             args['publiched_items'] = publiched_items
             args['count'] = count
@@ -109,12 +108,12 @@ def goods_list(request, category_value=None):
         # получение данных о количестве товаров в каждой категории
         for category in categories:
             category.item_count = all_items.filter(category=category).distinct().count()
-            category.save()
+            category.save(update_fields=['item_count'])
 
         # расчёт затрат, прибыли товаров, а также расчёт количества доступных товаров
         for item in all_items:
             expenses = 0
-            item_details = ItemDetails.objects.filter(item=item)  # получение деталей, использованных для данного товара
+            item_details = ItemDetails.objects.select_related('detail').filter(item=item)  # получение деталей, использованных для данного товара
 
             # расчёт затрат данного товара
             for detail in item_details:
@@ -122,7 +121,7 @@ def goods_list(request, category_value=None):
             item.available = available_goods(item_details)
             item.expenses = expenses
             item.profit = item.price - expenses
-            item.save()
+            item.save(update_fields=['available', 'expenses', 'profit'])
         args['categories'] = categories
         args['search'] = False
     args['all_items'] = all_items
@@ -132,21 +131,24 @@ def goods_list(request, category_value=None):
         return render(request, 'sklad/category_list.html', args)
 
 
-"""**************************************** Отображение списка товаров **********************************************"""
+"""**************************************** Отображение списка товаров пользователя**********************************"""
 
 
 def user_items(request, username):
     args = {}
     user = User.objects.get(username=username)
     all_items = Item.objects.all().filter(publicate=True, author=user).order_by("title")
-    publiched_items = Item.objects.all().filter(publicate=False, author=user).order_by("category", "title")
+    if user.is_superuser:
+        publiched_items = Item.objects.all().filter(publicate=False).order_by("category", "title")
+    else:
+        publiched_items = Item.objects.all().filter(publicate=False, author=user).order_by("category", "title")
     count = publiched_items.count()
     categories = Category.objects.all()
 
     # получение данных о количестве товаров в каждой категории
     for category in categories:
         category.item_count = all_items.filter(category=category).distinct().count()
-        category.save()
+        category.save(update_fields=['item_count'])
 
     # расчёт затрат, прибыли товаров, а также расчёт количества доступных товаров
     for item in all_items:
@@ -159,11 +161,12 @@ def user_items(request, username):
         item.available = available_goods(item_details)
         item.expenses = expenses
         item.profit = item.price - expenses
-        item.save()
+        item.save(update_fields=['available', 'expenses', 'profit'])
     args['all_items'] = all_items
     args['publiched_items'] = publiched_items
     args['count'] = count
     args['categories'] = categories
+    args['user_object'] = user
     return render(request, 'sklad/user_items.html', args)
 
 
@@ -539,5 +542,6 @@ def unpublicate_item(request, pk):
 def user_comments(request, username):
     args = {}
     userr = User.objects.get(username=username)
-    args['userr'] = userr
+    comments = userr.comments.all().order_by('created_date').reverse()
+    args['comments'] = comments
     return render(request, 'user_comments.html', args)

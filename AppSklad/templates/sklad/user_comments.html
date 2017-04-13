@@ -2,10 +2,11 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">4</div>
     <div class="row edit_div">
-        {% if userr.comments.all %}
+        {% if comments %}
             {% csrf_token %}
-            {% for comment in userr.comments.all %}
+            {% for comment in comments %}
                 <div class="row edit_div">
                     <div class="main_item_edit comment_published clearfix">
                         <a href="{% url 'user_profile' username=comment.author.username %}">
@@ -16,7 +17,7 @@
                                     {% if comment.author.profile.image %}
                                         <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author.profile.image}}" alt="Avatar">
                                     {% else %}
-                                        <img class="comment_avatar_img" src="{% static "img/Avatar.png"%}" alt="Avatar">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                     {% endif %}
                                 </div>
                             </div>

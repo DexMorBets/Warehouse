@@ -2,9 +2,11 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">2</div>
     <form class="form-horizontal search_mar" method="get" action="{% url 'goods_list' %}">
         {% csrf_token %}
         <div class="input-group">
+            <i class="fa fa-search" aria-hidden="true"></i>
             <input type="text" id="id_title_search2" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название товара" >
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default search_bt" value="search" id="btn_search">Найти</button>
@@ -22,6 +24,7 @@
                                     <thead>
                                         <tr>
                                             <th>Название</th>
+                                            <th>Автор</th>
                                             <th>Цена <span class="symbol">$</span></th>
                                         </tr>
                                     </thead>
@@ -31,9 +34,11 @@
                                                 <td>
                                                     <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
                                                     {% if item.comments.all.count > 0 %}
-                                                        <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+{#                                                        <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>#}
+                                                        <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments.all.count }}</span></div>
                                                     {% endif %}
                                                 </td>
+                                                <td>{{ item.author }}</td>
                                                 <td>{{ item.price }}</td>
                                             </tr>
                                         {% endfor %}
@@ -52,7 +57,7 @@
 {#        {% if search == False %}#}
             <div class="row">
                 <div  class="main block_margin">
-                    <div class="nov_ob2"><p class="items_title"><a href="{% url 'category_list' category_value=category.title_plural %}">{{ category.title_plural }}</a></p><span class="items_title_count">{{ category.item_count }}</span></div>
+                    <div class="nov_ob2"><i class="fa fa-sliders" aria-hidden="true"></i><p class="items_title"><a href="{% url 'category_list' category_value=category.title_plural %}">{{ category.title_plural }}</a></p><span class="items_title_count">{{ category.item_count }}</span></div>
                     {% if category.item_count > 0 %}
                         {% csrf_token %}
                         <div class="hide_panel">
@@ -74,7 +79,8 @@
                                                     <td>
                                                         <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
                                                         {% if item.comments.all.count > 0 %}
-                                                            <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>
+{#                                                            <div class="comment_div"><img src="{% static 'img/comments.png' %}"><span class="comments_count">{{ item.comments.all.count }}</span></div>#}
+                                                            <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments.all.count }}</span></div>
                                                         {% endif %}
                                                     </td>
                                                     <td>{{ item.expenses }}</td>
@@ -116,8 +122,7 @@
         </div>
     {% endif %}
     <script src="{% static "js/Own/goodsFadeIn.js" %}"></script>
-    <script src="{% static "js/Own/blurGoodslist.js" %}"></script>
+{#    <script src="{% static "js/Own/blurGoodslist.js" %}"></script>#}
     <script src="{% static "js/Own/selectRow.js" %}"></script>
-    <script src="{% static "js/Own/deleteCategory.js" %}"></script>
-    <script src="{% static "js/Own/addItem.js" %}"></script>
+    <script src="{% static "js/Own/categoryOptions.js" %}"></script>
 {% endblock content %}

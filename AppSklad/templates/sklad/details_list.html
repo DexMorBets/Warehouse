@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">1</div>
     <div class="row">
         <div class="border_style"></div>
     </div>
@@ -12,6 +13,7 @@
                 <form class="form-horizontal" method="get" action="{% url 'details_list' %}">
                 {% csrf_token %}
                     <div class="input-group">
+                        <i class="fa fa-search" aria-hidden="true"></i>
                         <input type="text"  id="id_title_search" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название детали" >
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default" value="search" id="btn_search">Найти</button>
@@ -40,7 +42,10 @@
                                         <td><a href="{% url 'details_detail' pk=detail.pk %}">{{ detail.title }}</a></td>
                                         <td>{{ detail.category.title }}</td>
                                         <td>{% if detail.color %}{{ detail.color.title }}{% else %}Стандартный{% endif %}
-                                            <div style="background-color: {{ detail.color.code }}" class="color_label_list"></div>
+{#                                            <div style="background-color: {{ detail.color.code }}" class="color_label_list"></div>#}
+                                            {% if detail.color.code %}
+                                                <i style="color: {{ detail.color.code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
+                                            {% endif %}
                                         </td>
                                         <td>{{ detail.price }}</td>
                                         <td>{{ detail.count }}</td>
@@ -89,6 +94,6 @@
             </div>
         </div>
     {% endif %}
-    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>
+{#    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>#}
     <script src="{% static "js/Own/selectRow.js" %}"></script>
 {% endblock content %}

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block login %}
+    <div id="page" class="hide">4</div>
     <div class="row">
         <div>
             <div class="border_style_login"></div>
@@ -11,11 +12,13 @@
         <div>
             <div class="login-div clearfix">
                 {% if user_form.username.value == user.username %}
-                    <a class='det_ch' href="{% url 'user_edit' %}" class="top-menu log-button"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class='det_ch' href="{% url 'user_edit' %}" class="top-menu log-button">
+                        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+                    </a>
                 {% endif %}
                 <p class="nov_ob2 detail_title"><span class="title_details_list">Данные пользователя</span></p>
                 {% if user_object.comments.all %}
-                    <a class='det_ch1' href="{% url 'user_comments' username=user_form.username.value %}" class="top-menu log-button"><span class="glyphicon glyphicon-comment"><span class="comments_count">{{ user_object.comments.all.count }}</span></span></a>
+                    <a class='det_ch1' href="{% url 'user_comments' username=user_form.username.value %}" class="top-menu log-button"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ user_object.comments.all.count }}</span></a>
                 {% endif %}
                 <div class="avatar_div">
                         {% if profile_user.image.value %}
@@ -24,15 +27,15 @@
                             </div>
                         {% else %}
                             <div class="avatar_default_block">
-                                <img class="avatar_default" src="{% static "img/Avatar.png"%}" alt="Avatar">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                             </div>
                         {% endif %}
                 </div>
-                {% if profile_user.last_seen %}
+                {% if profile_user.last_seen.value %}
                     <div>
                          <div class="last_seen">
                             <p class="last_seen_text">
-                                Последний раз был в сети: {{ profile_user.last_seen.value }}
+                                Был в сети: <span>{{ profile_user.last_seen.value }}</span>
                             </p>
                          </div>
                     </div>
@@ -40,7 +43,7 @@
                 <div>
                      <div class="tr_detail_item">
                         <p>
-                            <strong>Статус:</strong> {% if admin %} Администратор{% else %} Пользователь{% endif %}
+                            <strong>Статус</strong><p><span>{% if admin %} Администратор{% else %} Пользователь{% endif %}</span></p>
                         </p>
                      </div>
                 </div>
@@ -48,7 +51,7 @@
                     <div>
                         <div class="tr_detail_item">
                             <p>
-                                <strong>{{ a.label }}:</strong> {% if a.value %}{{ a.value }}{% else %}-{% endif %}
+                                <strong>{{ a.label }}</strong><p><span>{% if a.value %}{{ a.value }}{% else %}-{% endif %}</span></p>
                             </p>
                         </div>
                     </div>
@@ -58,7 +61,7 @@
                         <div>
                             <div class="tr_detail_item">
                                 <p>
-                                    <strong>{{ a.label }}:</strong> {% if a.value %}{{ a.value }}{% else %}-{% endif %}
+                                    <strong>{{ a.label }}</strong><p><span>{% if a.value %}{{ a.value }}{% else %}-{% endif %}</span></p>
                                 </p>
                             </div>
                         </div>
@@ -67,7 +70,7 @@
                 <div class="button_form">
                     {% if user_object.items.all %}
                         <div class="bt_item_edit">
-                            <a href="{% url 'user_items' username=user.username %}" class="btn btn_item_edit password_change user_items_bt bt1">Товары пользователя</a>
+                            <a href="{% url 'user_items' username=user_object.username %}" class="btn btn_item_edit password_change user_items_bt bt1">Товары пользователя</a>
                         </div>
                     {% endif %}
                     {% if user_form.username.value == user.username %}
@@ -79,6 +82,6 @@
             </div>
         </div>
     </div>
-    <script src="{% static "js/Own/blurLogin.js" %}"></script>
+{#    <script src="{% static "js/Own/blurLogin.js" %}"></script>#}
     <script src="{% static "js/Own/deleteMessage.js" %}"></script>
 {% endblock %}

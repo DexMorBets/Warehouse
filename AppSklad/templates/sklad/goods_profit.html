@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">3</div>
     <div class="row">
         <div class="border_style"></div>
     <div class="row">
@@ -22,7 +23,12 @@
                         <tbody>
                             {% for item in list_of_items %}
                                 <tr class="act">
-                                    <td><a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a></td>
+                                    <td><a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
+                                        {% if item.comments.all.count > 0 %}
+{#                                      <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>#}
+                                        <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments.all.count }}</span></div>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ item.count }}</td>
                                     <td>{{ item.expenses }}</td>
                                     <td>{{ item.received }}</td>

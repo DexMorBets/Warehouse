@@ -2,6 +2,15 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">2</div>
+    <style type="text/css">
+       .newdet .cd-dropdown, .cd-select {
+            width: 240px;
+            margin: 0 10px 0 0;
+            display: block;
+            float: left;
+       }
+    </style>
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
@@ -49,7 +58,7 @@
                 {% endif %}
                 {{ formset.management_form }}
                 {% for f in formset.forms %}
-                    <div class="inp_detail inp_detail_d clearfix">
+                    <div class="inp_detail inp_detail_d newdet clearfix">
                         {% for field in f %}
                             {{ field.errors }}
                             {{ field }}
@@ -77,11 +86,12 @@
                 {% endif %}
             </form>
         </div>
-        <script src="{% static "js/Own/blur.js" %}"></script>
+{#        <script src="{% static "js/Own/blur.js" %}"></script>#}
         <script src="{% static "js/Own/checkBox.js" %}"></script>
         <script src="{% static "js/Own/showDetail.js" %}"></script>
         <script src="{% static "js/Own/deleteDetail.js" %}"></script>
         <script src="{% static "js/Own/selectOption.js" %}"></script>
         <script src="{% static "js/Own/selectDetailPlaceholder.js" %}"></script>
+        <script src="{% static "js/Own/dropdown.js" %}"></script>
     </div>
 {% endblock content %}

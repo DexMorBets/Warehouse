@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div id="page" class="hide">1</div>
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
@@ -51,8 +52,9 @@
                     </div>
             </form>
         </div>
-        <script src="{% static "js/Own/blur.js" %}"></script>
+{#        <script src="{% static "js/Own/blur.js" %}"></script>#}
         <script src="{% static "js/Own/checkBox.js" %}"></script>
         <script src="{% static "js/Own/selectPlaceholderDetail.js" %}"></script>
+        <script src="{% static "js/Own/dropdown.js" %}"></script>
     </div>
 {% endblock content %}

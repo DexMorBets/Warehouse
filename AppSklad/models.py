@@ -34,7 +34,7 @@ class Detail(models.Model):
         verbose_name = 'Деталь'
         verbose_name_plural = 'Детали'
 
-    title = models.CharField(verbose_name='Название детали', max_length=200)
+    title = models.CharField(verbose_name='Название детали', max_length=200, db_index=True)
     category = models.ForeignKey('Category', verbose_name='Категория детали', related_name='+', default='')
     price = models.IntegerField(verbose_name='Закупочная цена')
     count = models.IntegerField(verbose_name='Количество')
@@ -54,7 +54,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории товаров'
 
     title = models.CharField(verbose_name='Название категории', max_length=50)
-    title_plural = models.CharField(verbose_name='Название категории во множественном числе', max_length=50)
+    title_plural = models.CharField(verbose_name='Название категории во множественном числе', max_length=50, db_index=True)
     item_count = models.IntegerField(verbose_name='Количесвто товаров в категории', blank=True, null=True)
 
     def __str__(self):
@@ -68,14 +68,14 @@ class Item(models.Model):
 
     author = models.ForeignKey(User, verbose_name='Автор', related_name="items", default='', blank=True, null=True)
     category = models.ForeignKey('Category', verbose_name='Категория товара', related_name='+', default='')
-    title = models.CharField(verbose_name='Название модели', max_length=50)
+    title = models.CharField(verbose_name='Название модели', max_length=50, db_index=True)
     price = models.IntegerField(verbose_name='Отпускная цена')
 
     expenses = models.IntegerField(verbose_name='Затраты на изготовление', null=True, blank=True)
     available = models.IntegerField(verbose_name='Количетсво достпных', null=True, blank=True)
     profit = models.IntegerField(verbose_name='Прибыль', null=True, blank=True)
     image = models.ImageField(upload_to='items/%Y/%m/%d/', blank=True)
-    publicate = models.BooleanField(verbose_name='Публикация', default=False)
+    publicate = models.BooleanField(verbose_name='Публикация', default=False, db_index=True)
 
     def publicate_item(self):
         self.publicate = True
@@ -94,7 +94,7 @@ class ItemDetails(models.Model):
         verbose_name = 'Деталь товара'
         verbose_name_plural = 'Детали товаров'
 
-    item = models.ForeignKey('Item', verbose_name='Товар', related_name='itemdetails')
+    item = models.ForeignKey('Item', verbose_name='Товар', related_name='itemdetails', db_index=True)
     detail = models.ForeignKey('Detail', verbose_name='Деталь', related_name='+')
     detail_count = models.IntegerField(verbose_name='Количество деталей')
 
