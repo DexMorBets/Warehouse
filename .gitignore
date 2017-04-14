@@ -5,5 +5,4 @@ SkladvenvLinux
 db.sqlite3
 .DS_Store
 .idea
-
-migrations
+settings.py
