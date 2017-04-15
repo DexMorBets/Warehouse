@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from .forms import SearchForm, DetailForm, ItemForm, ItemDetailsForm, CategoryForm, UserForm, UserFormChangePassword,\
     UserFormEdit, ProfileForm, ProfileFormEdit, CommentFormEdit
 from .models import Item, ItemDetails
+from django.db.models import Count
 import json
 
 
@@ -22,28 +23,22 @@ import json
 def details_list(request, page_number=1):
     args = {}
     args.update(csrf(request))
-    sum_price = 0
     if request.user.is_authenticated():
         request.user.profile.last_seen = timezone.now()
         request.user.profile.save(update_fields=['last_seen'])
     if request.GET and len(request.GET.get('title')) > 0:
         newuser_form = SearchForm(request.GET)
         all_details = Detail.objects.filter(title__contains=request.GET.get('title')).select_related('color').order_by('category__title', 'title')
-        for i in all_details:
-            sum_price += i.price * i.count
         args['form'] = newuser_form
         args['new_details'] = all_details
         args['pg'] = False
     else:
         all_details = Detail.objects.all().select_related('color').order_by('category__title', 'title')
-        for i in all_details:
-            sum_price += i.price * i.count
         current_page = Paginator(all_details, 10)
         args['new_details'] = current_page.page(page_number)
         count = all_details.count()
         args['pg'] = True
         args['count'] = count
-    args['sum'] = sum_price
     return render(request, 'sklad/details_list.html', args)
 
 
@@ -68,7 +63,7 @@ def available_goods(item_details):         # функция расчёта ко�
 
 def goods_list(request, category_value=None):
     args = {}
-    if request.GET and request.GET.get('title').count() > 0:
+    if request.GET and len(request.GET.get('title')) > 0:
         new_form = SearchForm(request.GET)
         if category_value is None:
             all_items = Item.objects.all().select_related('category').filter(publicate=True, title__contains=request.GET.get('title')).order_by("title")
@@ -274,7 +269,7 @@ def item_detail(request, pk):
             comment.item = item
             comment.created_date = timezone.now()
             comment.save()
-            return redirect('AppSklad.views.item_detail', pk=item.pk)
+            return redirect('item_detail', pk=item.pk)
     else:
         form = CommentFormEdit()
     args['form'] = form
@@ -301,7 +296,7 @@ def item_edit(request, pk):
             new_form.author = auth.get_user(request)
             new_form.save()
             formset.save()
-            return redirect('AppSklad.views.item_detail', pk=item.pk)
+            return redirect('item_detail', pk=item.pk)
         else:
             form = ItemForm(instance=item)
             formset = itemDetailsFormSet(instance=item)
@@ -321,7 +316,7 @@ def item_edit(request, pk):
 def item_delete(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.delete()
-    return redirect('AppSklad.views.goods_list')
+    return redirect('goods_list')
 
 
 """********************************************* Создание товара ****************************************************"""
@@ -336,7 +331,7 @@ def item_new(request, category=None):
             new_form = form.save(commit=False)
             new_form.author = auth.get_user(request)
             new_form.save()
-            return redirect("AppSklad.views.item_edit", pk=new_form.pk)
+            return redirect("item_edit", pk=new_form.pk)
         else:
             form = ItemForm(request.POST)
     else:
@@ -370,7 +365,7 @@ def detail_edit(request, pk=1):
         if form.is_valid():
             detail = form.save(commit=False)
             detail.save()
-            return redirect('AppSklad.views.details_detail', pk=detail.pk)
+            return redirect('details_detail', pk=detail.pk)
     else:
         form = DetailForm(instance=detail)
     args['form'] = form
@@ -390,7 +385,7 @@ def detail_new(request):
         if form.is_valid():
             detail = form.save(commit=False)
             detail.save()
-            return redirect('AppSklad.views.details_detail', pk=detail.pk)
+            return redirect('details_detail', pk=detail.pk)
     else:
         form = DetailForm()
     args['form'] = form
@@ -405,7 +400,7 @@ def detail_new(request):
 def detail_delete(request, pk):
     detail = get_object_or_404(Detail, pk=pk)
     detail.delete()
-    return redirect('AppSklad.views.details_list')
+    return redirect('details_list')
 
 
 """"************************************** Создание новой категории *************************************************"""
@@ -419,7 +414,7 @@ def category_new(request):
         if form.is_valid():
             category = form.save(commit=False)
             category.save()
-            return redirect('AppSklad.views.goods_list')
+            return redirect('goods_list')
     else:
         form = CategoryForm()
     args['form'] = form
@@ -482,7 +477,7 @@ def change_password(request):
                 password = form['password_ch'].value()
                 user.set_password(password)
                 user.save()
-                return redirect('AppSklad.views.details_list')
+                return redirect('details_list')
             else:
                 args['error'] = 'Пароли не совпадают.'
     form = UserFormChangePassword()
@@ -522,7 +517,7 @@ def user_edit(request):
 def publicate_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.publicate_item()
-    return redirect('AppSklad.views.goods_list')
+    return redirect('goods_list')
 
 
 """"********************************************* Скрытие товара ****************************************************"""
@@ -532,7 +527,7 @@ def publicate_item(request, pk):
 def unpublicate_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.unpublicate_item()
-    return redirect('AppSklad.views.goods_list')
+    return redirect('goods_list')
 
 
 """"************************************* Все комментарии пользователя **********************************************"""

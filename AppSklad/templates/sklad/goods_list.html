@@ -57,7 +57,7 @@
 {#        {% if search == False %}#}
             <div class="row">
                 <div  class="main block_margin">
-                    <div class="nov_ob2">{% if category.item_count == 0 %}<i class="fa fa-sliders" aria-hidden="true"></i>{% endif %}<p class="items_title"><a href="{% url 'category_list' category_value=category.title_plural %}">{{ category.title_plural }}</a></p><span class="items_title_count">{{ category.item_count }}</span></div>
+                    <div class="nov_ob2">{% if category.item_count == 0 and user.is_authenticated %}<i class="fa fa-sliders" aria-hidden="true"></i>{% endif %}<p class="items_title"><a href="{% url 'category_list' category_value=category.title_plural %}">{{ category.title_plural }}</a></p><span class="items_title_count">{{ category.item_count }}</span></div>
                     {% if category.item_count > 0 %}
                         {% csrf_token %}
                         <div class="hide_panel">
