@@ -9,18 +9,18 @@
     <div class="row edit_div">
         <div class="main_item_edit arrows_mar">
             <div class="nov_ob2 detail_title">
-                {% if user.is_superuser or user == item.author %}
-                    <a class='det_ch' href="{% url 'item_edit' pk=item.pk %}" class="top-menu log-button">
+                {% if user.is_superuser or user.id == item_values.author__id %}
+                    <a class='det_ch' href="{% url 'item_edit' pk=item_values.id %}" class="top-menu log-button">
                         <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
                     </a>
                 {% endif %}
-                <p><span class="title_details_list"><p>{{ item.category.title }} {{ item.title }}</p></span></p>
+                <p><span class="title_details_list"><p>{{ item_values.category__title }} {{ item_values.title }}</p></span></p>
             </div>
 {#        {{item.image.value}}#}
-            {% if item.image %}
+            {% if item_values.image %}
                 <div class="avatar_div">
                     <div class="image_block">
-                        <img class="image" src="{% static "img/"%}{{item.image}}" alt="Avatar">
+                        <img class="image" src="{% static "img/"%}{{item_values.image}}" alt="Avatar">
                     </div>
                 </div>
             {% else %}
@@ -32,24 +32,24 @@
             {% endif %}
             <div>
                 <div class="tr_detail_item">
-                    <p><strong>Автор</strong><a href="{% url 'user_profile' username=item.author.username %}"><p>{{ item.author.username }}</p></a></p>
+                    <p><strong>Автор</strong><a href="{% url 'user_profile' username=item_values.author__username %}"><p>{{ item_values.author__username }}</p></a></p>
                 </div>
                 <div class="tr_detail_item">
-                    <p><strong>Цена</strong><p>{{ item.price }}<span class="symbol"> $</span></p></p>
+                    <p><strong>Цена</strong><p>{{ item_values.price }}<span class="symbol"> $</span></p></p>
                 </div>
             </div>
             <div class="nov_ob2 detail_title detail_title_d">
                 <p><span class="title_details_list">Состоит из деталей:</span></p>
             </div>
-            {% for detail in item.itemdetails.all %}
+            {% for detail in itemdetails %}
                 <div>
 {#                    <div style="background-color: {{ detail.detail.color.code }}" class="color_label_edit_item"></div>#}
-                    {% if detail.detail.color.code %}
-                        <i style="color: {{ detail.detail.color.code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
+                    {% if detail.detail__color__code %}
+                        <i style="color: {{ detail.detail__color__code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
                     {% endif %}
                     <div class="tr_detail_item">
                         <p>
-                            <strong><a href="{% url 'details_detail' pk=detail.detail.pk %}">{{ detail.detail.title}}</a></strong>
+                            <strong><a href="{% url 'details_detail' pk=detail.detail__id %}">{{ detail.detail__title}}</a></strong>
                             {{ detail.detail_count}}
                             <span class="symbol">шт.</span>
                         </p>
@@ -57,19 +57,19 @@
                 </div>
                 {% endfor %}
             <div class="button_form">
-                {% if user.is_superuser and not item.publicate %}
-                    <a class="publish_button" href="{% url 'publicate_item' pk=item.pk %}">Опубликовать</a>
+                {% if user.is_superuser and not item_values.publicate %}
+                    <a class="publish_button" href="{% url 'publicate_item' pk=item_values.id %}">Опубликовать</a>
                 {% endif %}
-                {% if user.is_superuser and item.publicate %}
-                    <a class="hide_button" href="{% url 'unpublicate_item' pk=item.pk %}">Скрыть</a>
+                {% if user.is_superuser and item_values.publicate %}
+                    <a class="hide_button" href="{% url 'unpublicate_item' pk=item_values.id %}">Скрыть</a>
                 {% endif %}
-                {% if user.is_superuser or user == item.author %}
-                    <a class='delete_button' href="{% url 'item_delete' pk=item.pk %}">Удалить</a>
+                {% if user.is_superuser or user.id == item_values.author__id %}
+                    <a class='delete_button' href="{% url 'item_delete' pk=item_values.id %}">Удалить</a>
                 {% endif %}
             </div>
         </div>
     </div>
-    {% if item.publicate or user.is_superuser %}
+    {% if item_values.publicate or user.is_superuser %}
         {% if previous or next %}
             <div class="row edit_div">
                 <div class="arrows clearfix">
@@ -104,17 +104,17 @@
             </div>
         {% endif %}
         <div class="row edit_div hr"></div>
-        {% if item.comments.all %}
-            {% for comment in item.comments.all %}
+        {% if itemcomments %}
+            {% for comment in itemcomments %}
                 <div class="row edit_div">
                     <div class="main_item_edit comment_published clearfix">
-                        <a href="{% url 'user_profile' username=comment.author.username %}">
+                        <a href="{% url 'user_profile' username=comment.author__username %}">
                             <div class="comment_author">
-                                <span class="hide_panel">{{ comment.pk }}</span>
-                                <span>{{ comment.author.username }}</span>
+                                <span class="hide_panel">{{ comment.id }}</span>
+                                <span>{{ comment.author__username }}</span>
                                 <div class="comment_avatar">
-                                    {% if comment.author.profile.image %}
-                                        <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author.profile.image}}" alt="Avatar">
+                                    {% if comment.author__profile__image %}
+                                        <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author__profile__image}}" alt="Avatar">
                                     {% else %}
                                         <div class="avatar_default_block">
                                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -125,7 +125,7 @@
                         </a>
                         <div class="comment_date"><span>{{ comment.created_date }}</span></div>
                         <div class="comment_text">{{ comment.text }}</div>
-                        {% if comment.author == user %}
+                        {% if comment.author__id == user.id %}
                             <div class="comment_delete"><span class="category_delete_text">Удалить</span></div>
                         {% endif %}
                     </div>
@@ -137,7 +137,7 @@
             </div>
         {% endif %}
     {% endif %}
-    <script src="{% static "js/Own/sendComment.js" %}"></script>
-    <script src="{% static "js/Own/deleteComment.js" %}"></script>
+    <script src="{% static "js/Own/sendComment.js" %}" async></script>
+    <script src="{% static "js/Own/deleteComment.js" %}" async></script>
 {#    <script src="{% static "js/Own/blurComment.js" %}"></script>#}
 {% endblock content %}

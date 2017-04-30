@@ -10,7 +10,7 @@
         <div class="main">
             <div class="">
                 <div class="nov_ob2 detail_title"><p><span class="title_details_list">{{ category_value }}</span></p></div>
-                <form class="form-horizontal" method="get" action="{% url 'goods_list' %}">
+                <form class="form-horizontal" method="get" action="{% if username %}{% url 'user_category_items' category_value=category_value username=username %}{% else %}{% url 'category_list' category_value=category_value %}{% endif %}">
                     {% csrf_token %}
                     <div class="input-group">
                         <input type="text"  id="id_title_search" class="form-control" value="{{ form.title.value }}" name="title" placeholder="Введите название товара" >
@@ -35,16 +35,16 @@
                                 {% for item in all_items %}
                                     <tr class="act">
                                         <td>
-                                            <a href="{% url 'item_detail' pk=item.pk %}">{{ item.category.title }} {{ item.title }}</a>
-                                            {% if item.comments.all.count > 0 %}
+                                            <a href="{% url 'item_detail' pk=item.id %}">{{ item.category__title }} {{ item.title }}</a>
+                                            {% if item.comments_count > 0 %}
 {#                                                <span class="glyphicon glyphicon-comment"><span class="comments_count">{{ item.comments.all.count }}</span></span>#}
-                                                <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments.all.count }}</span></div>
+                                                <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments_count }}</span></div>
                                             {% endif %}
                                         </td>
-                                        <td>{{ item.expenses }}</td>
+                                        <td>{% if item.expenses %}{{ item.expenses }}{% else %}-{% endif %}</td>
                                         <td>{{ item.price }}</td>
-                                        <td>{{ item.profit }}</td>
-                                        <td>{{ item.available }}</td>
+                                        <td>{% if item.profit %}{{ item.profit }}{% else %}-{% endif %}</td>
+                                        <td>{% if item.available %}{{ item.available }}{% else %}-{% endif %}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -71,5 +71,5 @@
         </div>
     </div>
 {#    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>#}
-    <script src="{% static "js/Own/selectRow.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}" async></script>
 {% endblock content %}

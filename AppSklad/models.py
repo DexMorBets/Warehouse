@@ -43,9 +43,9 @@ class Detail(models.Model):
 
     def __str__(self):
         if self.color:
-            return self.title + " " + "|" + self.category.title + " " + "|" + self.color.title
+            return self.title + " " + "|" + " " + self.color.title
         else:
-            return self.title + " " + "|" + self.category.title
+            return self.title
 
 
 class Category(models.Model):
@@ -67,7 +67,7 @@ class Item(models.Model):
         verbose_name_plural = 'Товары'
 
     author = models.ForeignKey(User, verbose_name='Автор', related_name="items", default='', blank=True, null=True)
-    category = models.ForeignKey('Category', verbose_name='Категория товара', related_name='+', default='')
+    category = models.ForeignKey('Category', verbose_name='Категория товара', related_name='category_items')
     title = models.CharField(verbose_name='Название модели', max_length=50, db_index=True)
     price = models.IntegerField(verbose_name='Отпускная цена')
 
@@ -94,15 +94,12 @@ class ItemDetails(models.Model):
         verbose_name = 'Деталь товара'
         verbose_name_plural = 'Детали товаров'
 
-    item = models.ForeignKey('Item', verbose_name='Товар', related_name='itemdetails', db_index=True)
+    item = models.ForeignKey('Item', verbose_name='Товар', related_name='itemdetails')
     detail = models.ForeignKey('Detail', verbose_name='Деталь', related_name='+')
     detail_count = models.IntegerField(verbose_name='Количество деталей')
 
     def __str__(self):
         return self.item.category.title + " " + self.item.title + " " + self.detail.title
-
-    def get_category_detail(self, category):
-        return self.detail.filter(category=category)
 
 
 class Comment(models.Model):
@@ -110,8 +107,8 @@ class Comment(models.Model):
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
-    item = models.ForeignKey('Item', verbose_name='Товар', related_name="comments")
-    author = models.ForeignKey(User, verbose_name='Автор', related_name="comments")
+    item = models.ForeignKey('Item', verbose_name='Товар', related_name="item_comments")
+    author = models.ForeignKey(User, verbose_name='Автор', related_name="author_comments")
     text = models.TextField(max_length=150, verbose_name='Текст комментария')
     created_date = models.DateTimeField(default=timezone.now)
 

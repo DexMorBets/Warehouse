@@ -69,12 +69,6 @@ class ItemDetailsForm(forms.ModelForm):
             'detail_count': forms.TextInput(attrs={'placeholder': 'шт.', 'class': 'item_input_count'}),
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super(ItemDetailsForm, self).__init__(*args, **kwargs)
-    #     if self.instance:
-    #         self.fields['detail'].queryset = Detail.objects.filter(
-    #             category__pk=self.instance.detail.category.pk)
-
 
 """***************************************** Форма для создания категории *******************************************"""
 

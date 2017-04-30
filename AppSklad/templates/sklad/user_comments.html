@@ -9,23 +9,23 @@
             {% for comment in comments %}
                 <div class="row edit_div">
                     <div class="main_item_edit comment_published clearfix">
-                        <a href="{% url 'user_profile' username=comment.author.username %}">
+                        <a href="{% url 'user_profile' username=comment.author__username %}">
                             <div class="comment_author">
-                                <span class="hide_panel">{{ comment.pk }}</span>
-                                <span>{{ comment.author.username }}</span>
+                                <span class="hide_panel">{{ comment.id }}</span>
+                                <span>{{ comment.author__username }}</span>
                                 <div class="comment_avatar">
-                                    {% if comment.author.profile.image %}
-                                        <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author.profile.image}}" alt="Avatar">
+                                    {% if comment.author__profile__image %}
+                                        <img class="comment_avatar_img" src="{% static "img/"%}{{comment.author__profile__image}}" alt="Avatar">
                                     {% else %}
                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                     {% endif %}
                                 </div>
                             </div>
                         </a>
-                        <div class="comment_item"><span>#<a class="commen_item_a" href="{% url "item_detail" pk=comment.item.pk %}">{{ comment.item.category.title }} {{ comment.item.title }}</a></span></div>
+                        <div class="comment_item"><span>#<a class="commen_item_a" href="{% url "item_detail" pk=comment.item__id %}">{{ comment.item__category__title }} {{ comment.item__title }}</a></span></div>
                         <div class="comment_date"><span>{{ comment.created_date }}</span></div>
                         <div class="comment_text">{{ comment.text }}</div>
-                        {% if comment.author == user %}
+                        {% if comment.author__id == user.id %}
                             <div class="comment_delete"><span class="category_delete_text">Удалить</span></div>
                         {% endif %}
                     </div>
@@ -33,5 +33,5 @@
             {% endfor %}
         {% endif %}
     </div>
-    <script src="{% static "js/Own/deleteUserComment.js" %}"></script>
+    <script src="{% static "js/Own/deleteUserComment.js" %}" async></script>
 {% endblock %}

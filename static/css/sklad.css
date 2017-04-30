@@ -20,7 +20,7 @@ body {
 }
 
 .content {
-    margin-bottom: 15px;
+    margin-bottom: 50px;
     padding: 0 15px 0 15px;
     color: #616161;
 }
@@ -326,7 +326,7 @@ input[type=checkbox] {
     margin-top: 11px;
     padding: 30px 30px 60px 30px;
     background-color: #ffffff;
-    border-bottom: 1px solid #cecece;
+    border-bottom: 4px solid #e4e4e4;
 }
 
 .main_item_arrow {
@@ -757,10 +757,12 @@ div .last {
 }
 
 .goods_arrow_div {
-    padding: 12px 0;
-    margin-top: 15px;
+    padding: 19px 0 17px 0;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    width: 46px;
+    margin: 15px auto 0 auto;
+    border-radius: 100px;
 }
 
 .goods_arrow_div:hover,
@@ -1810,6 +1812,7 @@ form .input-group i.fa-search {
     content: "";
 	display: table;
 	table-layout: fixed;
+    z-index: 99999999;
 }
 
 .KW_progressBar {

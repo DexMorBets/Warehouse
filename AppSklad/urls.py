@@ -16,7 +16,6 @@ urlpatterns = [
     url(r'^goods/category/(?P<category_value>[А-яA-z]+)/$', views.goods_list, name='category_list'),
     url(r'^goods/$', views.goods_list, name='goods_list'),
     url(r'^goods/(?P<category>[А-яA-z]+)/newitem/$', views.item_new, name='item_new'),
-    # url(r'^goods/new/$', views.item_new, name='item_new'),
     url(r'^goods/profit/items/$', views.item_profit, name='items_profit'),
     url(r'^goods/profit/(?P<category>[А-яA-z]+)/$', views.item_profit, name='item_profit'),
     url(r'^details/page/(\d+)/$', views.details_list, name='details_list'),
@@ -29,7 +28,8 @@ urlpatterns = [
     url(r'^user/edit/$', views.user_edit, name='user_edit'),
     url(r'^user/[A-zА-я,0-9]+/comments/[0-9]+/comment/delete/$', views.comment_delete, name='comment_delete'),
     url(r'^user/(?P<username>[A-zА-я,0-9]+)/comments/$', views.user_comments, name='user_comments'),
-    url(r'^user/(?P<username>[A-zА-я,0-9]+)/goods/$', views.user_items, name='user_items'),
+    url(r'^user/(?P<username>[A-zА-я,0-9]+)/category/(?P<category_value>[А-яA-z]+)/$', views.goods_list, name='user_category_items'),
+    url(r'^user/(?P<username>[A-zА-я,0-9]+)/goods/$', views.goods_list, name='user_items'),
     url(r'^user/(?P<username>[A-zА-я,0-9]+)/$', views.user_profile, name='user_profile'),
     url(r'^', views.details_list, name='details_list'),
 ]

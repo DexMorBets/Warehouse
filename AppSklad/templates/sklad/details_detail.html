@@ -10,7 +10,7 @@
         <div class="main">
             <div class="nov_ob2 detail_title">
                 {% if user.is_superuser %}
-                    <a class='det_ch' href="{% url 'detail_edit' pk=detail.pk %}" class="top-menu log-button">
+                    <a class='det_ch' href="{% url 'detail_edit' pk=detail.id %}" class="top-menu log-button">
                         <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
                     </a>
                 {% endif %}
@@ -30,10 +30,10 @@
                 </div>
             {% endif %}
             <div class="tr_detail">
-                <p><strong>Категория</strong><p>{{ detail.category.title_plural }}</p></p>
+                <p><strong>Категория</strong><p>{{ detail.category__title_plural }}</p></p>
             </div>
             <div class="tr_detail">
-                <p><strong>Цвет</strong><p>{% if detail.color.title %}{{ detail.color.title }}{% if detail.color.code %}<i style="color: {{ detail.color.code }};" class="fa fa-tint" aria-hidden="true"></i>{% endif %}{% else %}Стандартный{% endif %}</p></p>
+                <p><strong>Цвет</strong><p>{% if detail.color__title %}{{ detail.color__title }}{% if detail.color__code %}<i style="color: {{ detail.color__code }};" class="fa fa-tint" aria-hidden="true"></i>{% endif %}{% else %}Стандартный{% endif %}</p></p>
             </div>
             <div class="tr_detail">
                 <p><strong>Цена</strong><p>{{ detail.price }} <span class="symbol">$</span></p></p>
@@ -43,7 +43,7 @@
             </div>
             <div class="button_form">
                 {% if user.is_superuser %}
-                    <a class='delete_button' href="{% url 'detail_delete' pk=detail.pk %}">Удалить</a>
+                    <a class='delete_button' href="{% url 'detail_delete' pk=detail.id %}">Удалить</a>
                 {% endif %}
             </div>
         </div>

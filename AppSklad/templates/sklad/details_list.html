@@ -39,12 +39,12 @@
                             <tbody>
                                 {% for detail in new_details %}
                                     <tr class="act">
-                                        <td><a href="{% url 'details_detail' pk=detail.pk %}">{{ detail.title }}</a></td>
-                                        <td>{{ detail.category.title }}</td>
-                                        <td>{% if detail.color %}{{ detail.color.title }}{% else %}Стандартный{% endif %}
+                                        <td><a href="{% url 'details_detail' pk=detail.id %}">{{ detail.title }}</a></td>
+                                        <td>{{ detail.category__title }}</td>
+                                        <td>{% if detail.color__title %}{{ detail.color__title }}{% else %}Стандартный{% endif %}
 {#                                            <div style="background-color: {{ detail.color.code }}" class="color_label_list"></div>#}
-                                            {% if detail.color.code %}
-                                                <i style="color: {{ detail.color.code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
+                                            {% if detail.color__code %}
+                                                <i style="color: {{ detail.color__code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
                                             {% endif %}
                                         </td>
                                         <td>{{ detail.price }}</td>
@@ -95,5 +95,5 @@
         </div>
     {% endif %}
 {#    <script src="{% static "js/Own/detailsListBlur.js" %}"></script>#}
-    <script src="{% static "js/Own/selectRow.js" %}"></script>
+    <script src="{% static "js/Own/selectRow.js" %}" defer></script>
 {% endblock content %}
