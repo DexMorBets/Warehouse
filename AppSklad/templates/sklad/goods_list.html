@@ -84,7 +84,7 @@
                                                     <a href="{% url 'item_detail' pk=item.id %}">{{ item.category__title }} {{ item.title }} </a>
                                                     {% if item.comments_count %}
 {#                                                            <div class="comment_div"><img src="{% static 'img/comments.png' %}"><span class="comments_count">{{ item.comments.all.count }}</span></div>#}
-                                                        <div class="comment_div"><i class="fa fa-comments" aria-hidden="true"></i><span class="comments_count">{{ item.comments_count }}</span></div>
+                                                        <div class="comment_div">{% if user.is_authenticated %}<i class="fa fa-comments" aria-hidden="true"></i>{% endif %}<span class="comments_count">{{ item.comments_count }}</span></div>
                                                     {% endif %}
                                                 </td>
                                                 <td>{% if item.expenses %}{{ item.expenses }}{% else %}-{% endif %}</td>

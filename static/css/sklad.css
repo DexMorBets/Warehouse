@@ -39,7 +39,7 @@ a:hover,
 a:active,
 a:checked,
 a:focus{
-    color:black;
+    color:#616161;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
 }
@@ -1019,7 +1019,7 @@ div .last {
 .border_style,
 .border_style_login {
     margin-top: 12px;
-    height: 4px;
+    height: 6px;
     /*background: linear-gradient(141deg, #00b344 0%, #1596a5 80%, rgb(41, 137, 173) 100%);*/
     background-color: #4c59a2;
 }
@@ -1156,7 +1156,7 @@ td {
     height: 65px;
     padding: 0;
     background-color: white;
-    border-bottom: 1px solid #cecece;
+    border-bottom: 4px solid #e4e4e4
 }
 
 .arrows img {
