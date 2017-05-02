@@ -9,7 +9,7 @@ $(document).ready(function () {
         });
 
         $(this).parent().parent().find($('.category_delete')).click(function () {
-            $(this).closest('.row').fadeOut('slow');
+            $(this).closest('.row:first').fadeOut('slow');
             $.ajax({
                     type: 'POST',
                     url: 'category/delete/',
@@ -32,6 +32,7 @@ $(document).ready(function () {
         $(this).parent().parent().find($('.category_add')).click(function () {
             category = $(this).parent().find('.items_title').text();
             loc = category + '/newitem/';
+
             location.href = loc;
         });
     });

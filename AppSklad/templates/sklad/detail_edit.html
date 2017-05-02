@@ -3,6 +3,20 @@
 
 {% block content %}
     <div id="page" class="hide">1</div>
+    {% if error %}
+        <div class="row">
+            <div class="row delete_message">
+                <div class=" login-div warning-message">
+                    <div class="row">
+                        <div class="close_win">
+                            <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
+                        </div>
+                    </div>
+                    <p id="error_login">{{ error }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
@@ -53,6 +67,7 @@
             </form>
         </div>
 {#        <script src="{% static "js/Own/blur.js" %}"></script>#}
+        <script src="{% static "js/Own/deleteMessage.js" %}"></script>
         <script src="{% static "js/Own/checkBox.js" %}" async></script>
         <script src="{% static "js/Own/selectPlaceholderDetail.js" %}" async></script>
         <script src="{% static "js/Own/dropdown.js" %}" async></script>

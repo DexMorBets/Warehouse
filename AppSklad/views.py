@@ -252,28 +252,34 @@ def item_edit(request, pk):
         for form1 in formset:
             form1.fields['detail'].queryset = Detail.objects.filter(category__id=item_values['category__id'])
         if form.is_valid() and formset.is_valid():
-            new_form = form.save(commit=False)
-            new_form.price = form.cleaned_data['price']
-            new_form.category = form.cleaned_data['category']
-            new_form.title = form.cleaned_data['title']
-            new_form.author = auth.get_user(request)
-            new_form.save()
-            formset.save()
-            details = Detail.objects.all().values('count', 'title')
-            expenses = 0
+            title = Item.objects.filter(title=form.cleaned_data['title']).exists()
+            if title:
+                args['error'] = 'Товар с таким именем уже существует!'
+                form = ItemForm(instance=item)
+                formset = itemDetailsFormSet(instance=item)
+            else:
+                new_form = form.save(commit=False)
+                new_form.price = form.cleaned_data['price']
+                new_form.category = form.cleaned_data['category']
+                new_form.title = form.cleaned_data['title']
+                new_form.author = auth.get_user(request)
+                new_form.save()
+                formset.save()
+                details = Detail.objects.all().values('count', 'title')
+                expenses = 0
 
-            # получение деталей, использованных для данного товара
-            item_details = ItemDetails.objects.values('detail__price', 'detail_count', 'detail__title').filter(item__id=item_values['id'])
+                # получение деталей, использованных для данного товара
+                item_details = ItemDetails.objects.values('detail__price', 'detail_count', 'detail__title').filter(item__id=item_values['id'])
 
-            # расчёт затрат данного товара
-            if item_details:
-                for detail in item_details:
-                    expenses += detail['detail__price'] * detail['detail_count']
-                item.available = available_goods(item_details, details)
-                item.expenses = expenses
-                item.profit = item.price - expenses
-                item.save(update_fields=['available', 'expenses', 'profit'])
-            return redirect('item_detail', pk=item_values['id'])
+                # расчёт затрат данного товара
+                if item_details:
+                    for detail in item_details:
+                        expenses += detail['detail__price'] * detail['detail_count']
+                    item.available = available_goods(item_details, details)
+                    item.expenses = expenses
+                    item.profit = item.price - expenses
+                    item.save(update_fields=['available', 'expenses', 'profit'])
+                return redirect('item_detail', pk=item_values['id'])
         else:
             form = ItemForm(instance=item)
             formset = itemDetailsFormSet(instance=item)
@@ -309,10 +315,15 @@ def item_new(request, category=None):
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.author = auth.get_user(request)
-            new_form.save()
-            return redirect("item_edit", pk=new_form.pk)
+            title = Item.objects.filter(title=form.cleaned_data['title']).exists()
+            if title:
+                args['error'] = 'Товар с таким именем уже существует!'
+                form = ItemForm(request.POST)
+            else:
+                new_form = form.save(commit=False)
+                new_form.author = auth.get_user(request)
+                new_form.save()
+                return redirect("item_edit", pk=new_form.pk)
         else:
             form = ItemForm(request.POST)
     else:
@@ -346,8 +357,13 @@ def detail_edit(request, pk):
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES, instance=detail)
         if form.is_valid():
-            detail = form.save()
-            return redirect('details_detail', pk=detail.pk)
+            title = Detail.objects.filter(title=form.cleaned_data['title']).exists()
+            if title:
+                args['error'] = 'Деталь с таким именем уже существует!'
+                form = DetailForm(request.POST)
+            else:
+                detail = form.save()
+                return redirect('details_detail', pk=detail.pk)
     else:
         form = DetailForm(instance=detail)
     args['form'] = form
@@ -365,9 +381,14 @@ def detail_new(request):
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES)
         if form.is_valid():
-            detail = form.save(commit=False)
-            detail.save()
-            return redirect('details_detail', pk=detail.pk)
+            title = Detail.objects.filter(title=form.cleaned_data['title']).exists()
+            if title:
+                args['error'] = 'Деталь с таким именем уже существует!'
+                form = DetailForm(request.POST)
+            else:
+                detail = form.save(commit=False)
+                detail.save()
+                return redirect('details_detail', pk=detail.pk)
     else:
         form = DetailForm()
     args['form'] = form
@@ -394,8 +415,17 @@ def category_new(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('goods_list')
+            title = Category.objects.filter(title=form.cleaned_data['title']).exists()
+            title_plural = Category.objects.filter(title_plural=form.cleaned_data['title_plural']).exists()
+            if title or title_plural:
+                args['error'] = 'Такая категория уже существует!'
+                form = CategoryForm(request.POST)
+            else:
+                newform = form.save()
+                cat = Category.objects.get(id=newform.id)
+                cat.item_count = 0
+                cat.save()
+                return redirect('goods_list')
     else:
         form = CategoryForm()
     args['form'] = form

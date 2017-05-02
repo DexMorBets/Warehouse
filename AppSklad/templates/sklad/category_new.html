@@ -3,6 +3,20 @@
 
 {% block content %}
     <div id="page" class="hide">2</div>
+    {% if error %}
+        <div class="row">
+            <div class="row delete_message">
+                <div class=" login-div warning-message">
+                    <div class="row">
+                        <div class="close_win">
+                            <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
+                        </div>
+                    </div>
+                    <p id="error_login">{{ error }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
@@ -30,6 +44,7 @@
                 </div>
             </form>
         </div>
+    <script src="{% static "js/Own/deleteMessage.js" %}"></script>
 {#        <script src="{% static "js/Own/blur.js" %}"></script>#}
     </div>
 {% endblock content %}

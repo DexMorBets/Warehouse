@@ -724,12 +724,13 @@ div .last {
 }
 
 .warning-message {
-    background-color: rgb(255, 55, 55);
+    background-color: rgb(255, 92, 92);
     color: white;
     padding: 12px 12px 25px 12px;
     margin-bottom: 12px;
     border-radius: 2px;
     box-shadow: none;
+    border-bottom: 4px solid rgb(212, 76, 76);
     font-size: 6px;
 }
 
@@ -739,10 +740,14 @@ div .last {
     padding-bottom: 5px;
 }
 
-.close_win_logo:hover {
-    transform: rotate(180deg);
-    transition-duration: 0.5s;
+.close_win_logo {
+    cursor: pointer;
 }
+
+/*.close_win_logo:hover {*/
+    /*transform: rotate(180deg);*/
+    /*transition-duration: 0.5s;*/
+/*}*/
 
 .detail_div {
     font-size: 18px;
