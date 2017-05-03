@@ -10,20 +10,18 @@
        }
     </style>
     {% if error %}
-    <div class="row">
-        <div class="content container">
-                <div class="row delete_message">
-                    <div class=" login-div warning-message">
-                        <div class="row">
-                            <div class="close_win">
-                                <span id="close_win_logo" class="glyphicon glyphicon-remove close_win_logo"></span>
-                            </div>
+        <div class="row">
+            <div class="row delete_message">
+                <div class=" login-div warning-message">
+                    <div class="row">
+                        <div class="close_win">
+                            <i class="fa fa-times" aria-hidden="true"></i>
                         </div>
-                        <p id="error_login">{{ error }}</p>
                     </div>
+                    <p id="error_login">{{ error }}</p>
                 </div>
+            </div>
         </div>
-    </div>
     {% endif %}
     <div class="row">
         <div>

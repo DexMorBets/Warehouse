@@ -431,7 +431,7 @@ input[type=checkbox] {
 }
 
 .bt {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 #error_login {
@@ -740,14 +740,10 @@ div .last {
     padding-bottom: 5px;
 }
 
-.close_win_logo {
+.close_win i {
     cursor: pointer;
+    font-size: 18px;
 }
-
-/*.close_win_logo:hover {*/
-    /*transform: rotate(180deg);*/
-    /*transition-duration: 0.5s;*/
-/*}*/
 
 .detail_div {
     font-size: 18px;
@@ -861,6 +857,15 @@ div .last {
 .comment_delete{
     cursor: pointer;
     left: 475px;
+}
+
+.comment_delete i {
+    font-size: 25px;
+}
+
+.category_delete i,
+.category_add i {
+    font-size: 25px;
 }
 
 .category_add {
@@ -1246,9 +1251,7 @@ td {
 }
 
 .hr {
-    height: 1px;
     margin-bottom: 50px;
-    background-color: rgba(154, 154, 154, 0.24);
 }
 
 .comment_not {
@@ -1442,6 +1445,7 @@ td {
 .check_image {
     width: 15px;
     height: 15px;
+    cursor: pointer;
 }
 
 .search_mar {
@@ -1655,6 +1659,10 @@ form .input-group i.fa-search {
     position: absolute;
     right: -30px;
     top: -41px;
+}
+
+.tr_detail_profile {
+    width: 270px;
 }
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/

@@ -3,7 +3,7 @@ $(document).ready(function () {
         $(this).parent().parent().find($('.category_delete')).add($(this).parent().parent().find($('.category_add'))).animate({width:'toggle'},350);
 
         $(this).parent().parent().find($('.category_delete')).mouseenter(function () {
-            $(this).parent().parent().find($('.category_delete_text')).html("<span class='glyphicon glyphicon-trash'></span>");
+            $(this).parent().parent().find($('.category_delete_text')).html('<i class="fa fa-trash-o" aria-hidden="true"></i>');
         }).mouseleave(function () {
             $(this).parent().parent().find($('.category_delete_text')).html('Удалить')
         });
@@ -25,7 +25,7 @@ $(document).ready(function () {
         });
 
         $(this).parent().parent().find($('.category_add')).mouseenter(function () {
-            $(this).parent().parent().find($('.category_add_text')).html("<span class='glyphicon glyphicon-plus'></span>");
+            $(this).parent().parent().find($('.category_add_text')).html('<i class="fa fa-plus" aria-hidden="true"></i>');
         }).mouseleave(function () {
             $(this).parent().parent().find($('.category_add_text')).html('Добавить')
         });

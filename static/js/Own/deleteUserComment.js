@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('.comment_published').hover(function () {
         $(this).find($('.comment_delete')).animate({width:'toggle'},350);
         $(this).find($('.comment_delete')).mouseenter(function () {
-            $(this).find($('.category_delete_text')).html("<span class='glyphicon glyphicon-trash'></span>");
+            $(this).find($('.category_delete_text')).html('<i class="fa fa-trash-o" aria-hidden="true"></i>');
         }).mouseleave(function () {
             $(this).find($('.category_delete_text')).html('Удалить')
         });

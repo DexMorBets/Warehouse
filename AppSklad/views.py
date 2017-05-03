@@ -252,8 +252,8 @@ def item_edit(request, pk):
         for form1 in formset:
             form1.fields['detail'].queryset = Detail.objects.filter(category__id=item_values['category__id'])
         if form.is_valid() and formset.is_valid():
-            title = Item.objects.filter(title=form.cleaned_data['title']).exists()
-            if title:
+            title = Item.objects.filter(title=form.cleaned_data['title'], category=form.cleaned_data['category']).exists()
+            if title and item.title != form.cleaned_data['title']:
                 args['error'] = 'Товар с таким именем уже существует!'
                 form = ItemForm(instance=item)
                 formset = itemDetailsFormSet(instance=item)
@@ -315,7 +315,7 @@ def item_new(request, category=None):
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
-            title = Item.objects.filter(title=form.cleaned_data['title']).exists()
+            title = Item.objects.filter(title=form.cleaned_data['title'], category=form.cleaned_data['category']).exists()
             if title:
                 args['error'] = 'Товар с таким именем уже существует!'
                 form = ItemForm(request.POST)
@@ -358,7 +358,7 @@ def detail_edit(request, pk):
         form = DetailForm(request.POST, request.FILES, instance=detail)
         if form.is_valid():
             title = Detail.objects.filter(title=form.cleaned_data['title']).exists()
-            if title:
+            if title and detail.title != form.cleaned_data['title']:
                 args['error'] = 'Деталь с таким именем уже существует!'
                 form = DetailForm(request.POST)
             else:
@@ -491,7 +491,7 @@ def change_password(request):
                 user.save()
                 return redirect('details_list')
             else:
-                args['error'] = 'Пароли не совпадают.'
+                args['error'] = 'Пароли не совпадают!'
     form = UserFormChangePassword()
     args['form'] = form
     return render(request, 'change_password.html', args)
@@ -508,14 +508,20 @@ def user_edit(request):
         form = UserFormEdit(request.POST, request.FILES)
         profile_form = ProfileFormEdit(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid() and profile_form.is_valid():
-            user.first_name = form['first_name'].value()
-            user.last_name = form['last_name'].value()
-            user.email = form['email'].value()
-            user.save()
-            profile_form.save()
-            return HttpResponseRedirect('/user/')
-    form = UserFormEdit(instance=request.user)
-    profile_form = ProfileFormEdit(instance=request.user.profile)
+            email = User.objects.filter(email=form.cleaned_data['email']).exists()
+            if email and user.email != form.cleaned_data['email']:
+                args['error'] = 'Пользователь с таким email уже существует!'
+            else:
+                user.first_name = form['first_name'].value()
+                user.last_name = form['last_name'].value()
+                user.email = form['email'].value()
+                user.save()
+                profile_form.save()
+                return HttpResponseRedirect('/user/')
+
+    else:
+        form = UserFormEdit(instance=request.user)
+        profile_form = ProfileFormEdit(instance=request.user.profile)
     args['form'] = form
     args['profile_form'] = profile_form
     args['user_image'] = user.profile.image
