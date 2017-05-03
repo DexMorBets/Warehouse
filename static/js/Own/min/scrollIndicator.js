@@ -1,0 +1,1 @@
+$(document).ready(function(){$(window).scroll(function(){var a=parseInt($(window).scrollTop()),b=parseInt($(document).height()),c=parseInt($(window).height()),d=b-c,e=a/d*100;$(".KW_progressBar").css("width",e+"%")})});

@@ -1,0 +1,1 @@
+$(document).ready(function(){$(document).on("click",".check_image",function(){"/static/img/check_off.png"==$(this).attr("src")?($(this).attr("src","/static/img/check_on.png").children().toggleClass("hidden_detail"),$(".avatar_div").fadeOut("slow")):($(this).attr("src","/static/img/check_off.png").children().toggleClass("hidden_detail"),$(".avatar_div").fadeIn("slow"))})});

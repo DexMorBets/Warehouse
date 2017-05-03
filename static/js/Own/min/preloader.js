@@ -1,0 +1,1 @@
+function fadeOutnojquery(a){a.style.opacity=1;var b=setInterval(function(){a.style.opacity=a.style.opacity-.05,a.style.opacity<=.05&&(clearInterval(b),hellopreloader.style.display="none")},10)}var hellopreloader=document.getElementById("hellopreloader_preload");window.onload=function(){setTimeout(function(){fadeOutnojquery(hellopreloader)},300)};

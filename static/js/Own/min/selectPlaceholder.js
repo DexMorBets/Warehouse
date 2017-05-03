@@ -1,0 +1,1 @@
+$(document).ready(function(){$("select option:first-child").each(function(){$(this).is(":selected")&&$(this).html("--Категория--")})});

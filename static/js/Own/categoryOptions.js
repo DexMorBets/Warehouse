@@ -9,7 +9,7 @@ $(document).ready(function () {
         });
 
         $(this).parent().parent().find($('.category_delete')).click(function () {
-            $(this).closest('.row:first').fadeOut('slow');
+            $(this).closest('.row').fadeOut('slow');
             $.ajax({
                     type: 'POST',
                     url: 'category/delete/',

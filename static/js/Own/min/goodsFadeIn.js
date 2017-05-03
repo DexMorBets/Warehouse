@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".arrow").click(function(){$(this).siblings(".hide_panel").slideToggle(500),$(this).find('img[alt^="Arrow"]').toggleClass("rotate")})});

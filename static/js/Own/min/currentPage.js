@@ -1,0 +1,1 @@
+$(document).ready(function(){var a=$("#page").text();"1"==a?$(".details_li").css("border-bottom","5px solid #ffa500"):"2"==a?$(".goods_li").css("border-bottom","5px solid #ffa500"):"3"==a?$(".plan_li").css("border-bottom","5px solid #ffa500"):"4"==a&&$(".header_avatar_img").css({border:"3px solid #ffa500",width:"46px",height:"46px","margin-top":"11px"})});
