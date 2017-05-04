@@ -207,6 +207,7 @@ input[type=checkbox] {
     margin-top: 6px;
     float: right;
     position: relative;
+    font-size: 25px;
     left: 11px;
 }
 
