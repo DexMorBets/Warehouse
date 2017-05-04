@@ -77,7 +77,7 @@
                             {{ field.errors }}
                             {{ field }}
                             {% if field.name == "DELETE" %}
-                                <label class="trash" for="{{ field.id_for_label}}"><span class="glyphicon glyphicon-trash"></span></label>
+                                <label class="trash" for="{{ field.id_for_label}}"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                             {% endif %}
 {#                            {{ field.id_for_label}}#}
                         {% endfor %}
@@ -100,8 +100,9 @@
                 {% endif %}
             </form>
         </div>
+        <script src="{% static "js/jquery-3.1.1.min.js" %}" defer></script>
 {#        <script src="{% static "js/Own/blur.js" %}"></script>#}
-        <script src="{% static "js/Own/min/deleteMessage.js" %}"></script>
+        <script src="{% static "js/Own/min/deleteMessage.js" %}" async></script>
         <script src="{% static "js/Own/min/checkBox.js" %}" async></script>
         <script src="{% static "js/Own/min/showDetail.js" %}" async></script>
         <script src="{% static "js/Own/min/deleteDetail.js" %}" async></script>

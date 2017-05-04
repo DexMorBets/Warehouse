@@ -1657,15 +1657,17 @@ form .input-group i.fa-search {
     color: #616161;
 }
 
-.newdet label.trash span.glyphicon-trash {
+.newdet label.trash i {
     position: absolute;
     right: -30px;
-    top: -41px;
+    top: -42px;
+    font-size: 25px;
 }
 
 .tr_detail_profile {
     width: 270px;
 }
+
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/
 
