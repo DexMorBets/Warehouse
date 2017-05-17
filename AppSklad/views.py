@@ -70,7 +70,9 @@ def available_goods(item_details, details):
 def goods_list(request, category_value=None, username=None):
     args = {}
     address = {}
+    address_list = []
     address['Товар'] = '/goods/'
+    address_list.append('Товар')
     categories = Category.objects.all().values('id', 'title_plural', 'item_count').order_by('-item_count')
     all_items_args = {'publicate': True}
     if category_value is None:
@@ -80,6 +82,7 @@ def goods_list(request, category_value=None, username=None):
     if username:
         all_items_args['author__username'] = username
         address[username] = '/user/' + str(User.objects.filter(username=username).values_list('username', flat=True)[0]) + '/'
+        address_list.append(username)
         if category_value is None:
             unpubliched_items_args['author__username'] = username
     if request.GET and len(request.GET.get('title')) > 0:
@@ -99,6 +102,7 @@ def goods_list(request, category_value=None, username=None):
         args['unpubliched_count'] = unpubliched_count
     else:
         address[category_value] = '/goods/category/' + category_value + '/'
+        address_list.append(category_value)
     for item in all_items:
         item['comments_count'] = Item.objects.get(id=item['id']).item_comments.all().count()
     args['category_value'] = category_value
@@ -117,6 +121,7 @@ def goods_list(request, category_value=None, username=None):
     args['categories'] = categories
     args['all_items'] = all_items
     args['address'] = address
+    args['address_list'] = address_list
     if category_value is None:
         return render(request, 'sklad/goods_list.html', args)
     else:
@@ -148,15 +153,18 @@ def profit_available_goods(all_items, dict_details):
 def item_profit(request, category=None):
     args = {}
     address = {}
+    address_list = []
     list_of_items = []
     sum_profit = 0
     address['Прибыль'] = '/goods/profit/items/'
+    address_list.append('Прибыль')
 
     if category:
         all_items = Item.objects.all().values('id', 'available', 'profit', 'expenses', 'category__title', 'title').filter(category__title_plural=category, publicate=True, profit__gt=0).order_by("title")  # набор всех товаров
         details = Detail.objects.all().values('id', 'count', 'title', 'category__title').filter(category__title_plural=category).order_by("title")  # набор всех деталей
         args['category'] = category
         address[category] = '/goods/category/' + category + '/'
+        address_list.append(category)
     else:
         all_items = Item.objects.all().values('id', 'available', 'profit', 'expenses', 'category__title', 'title').filter(publicate=True, profit__gt=0).order_by("title")  # набор всех товаров
         args['all_items'] = all_items
@@ -210,6 +218,7 @@ def item_profit(request, category=None):
     args['sum_profit'] = sum_profit
     args['dict_details'] = dict_details
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'sklad/goods_profit.html', args)
 
 
@@ -219,6 +228,7 @@ def item_profit(request, category=None):
 def item_detail(request, pk):
     args = {}
     address = {}
+    address_list = []
     item = get_object_or_404(Item, pk=pk)
     item_values = Item.objects.filter(id=pk).values('id', 'author__id', 'title', 'category__title', 'image',
                                                     'author__username', 'price', 'publicate')[0]
@@ -248,8 +258,11 @@ def item_detail(request, pk):
     args['form'] = form
     args['itemcomments'] = itemcomments
     address['Товар'] = '/goods/'
+    address_list.append('Товар')
     address[item_values['category__title'] + ' ' + item_values['title']] = '/goods/' + pk + '/'
+    address_list.append(item_values['category__title'] + ' ' + item_values['title'])
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'item_detail.html', args)
 
 
@@ -260,6 +273,7 @@ def item_detail(request, pk):
 def item_edit(request, pk):
     args = {}
     address = {}
+    address_list = []
     item = get_object_or_404(Item, pk=pk)
     item_values = Item.objects.all().values('id', 'title', 'category__title', 'image', 'category__id').get(pk=pk)
     itemDetailsFormSet = inlineformset_factory(Item, ItemDetails, form=ItemDetailsForm, fk_name='item', fields=('detail', 'detail_count'), max_num=11, extra=8)
@@ -311,9 +325,13 @@ def item_edit(request, pk):
     args['form'] = form
     args['item_image'] = item_values['image']
     address['Товар'] = '/goods/'
+    address_list.append('Товар')
     address[item_values['category__title'] + ' ' + item_values['title']] = '/goods/' + pk + '/'
+    address_list.append(item_values['category__title'] + ' ' + item_values['title'])
     address['Редактирование товара'] = request.get_full_path()
+    address_list.append('Редактирование товара')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'item_edit.html', args)
 
 
@@ -334,6 +352,7 @@ def item_delete(request, pk):
 def item_new(request, category=None):
     args = {}
     address = {}
+    address_list = []
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -355,8 +374,11 @@ def item_new(request, category=None):
     if category:
         args['category'] = category
     address['Товар'] = '/goods/'
+    address_list.append('Товар')
     address['Новый товар'] = request.get_full_path()
+    address_list.append('Новый товар')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'item_edit.html', args)
 
 
@@ -366,13 +388,17 @@ def item_new(request, category=None):
 def details_detail(request, pk):
     args = {}
     address = {}
+    address_list = []
     model = Detail.objects.filter(id=pk).values('id', 'title', 'category__title_plural', 'category__title', 'price',
                                                 'count', 'color__title', 'color__code', 'image')
     detail = get_object_or_404(model, id=pk)
     args['detail'] = detail
     address['Детали'] = '/'
+    address_list.append('Детали')
     address[model[0]['title']] = request.get_full_path()
+    address_list.append(model[0]['title'])
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'details_detail.html', args)
 
 
@@ -383,6 +409,7 @@ def details_detail(request, pk):
 def detail_edit(request, pk):
     args = {}
     address = {}
+    address_list = []
     detail = get_object_or_404(Detail, id=pk)
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES, instance=detail)
@@ -399,9 +426,13 @@ def detail_edit(request, pk):
     args['form'] = form
     args['detail_image'] = detail.image
     address['Детали'] = '/'
+    address_list.append('Детали')
     address[detail.title] = '/details/' + pk + '/'
+    address_list.append(detail.title)
     address['Редактирование детали'] = request.get_full_path()
+    address_list.append('Редактирование детали')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'detail_edit.html', args)
 
 
@@ -412,6 +443,7 @@ def detail_edit(request, pk):
 def detail_new(request):
     args = {}
     address = {}
+    address_list = []
     new = True
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES)
@@ -429,8 +461,11 @@ def detail_new(request):
     args['form'] = form
     args['new'] = new
     address['Детали'] = '/'
+    address_list.append('Детали')
     address['Новая деталь'] = request.get_full_path()
+    address_list.append('Новая деталь')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'detail_edit.html', args)
 
 
@@ -451,6 +486,7 @@ def detail_delete(request, pk):
 def category_new(request):
     args = {}
     address = {}
+    address_list = []
     if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -469,7 +505,9 @@ def category_new(request):
         form = CategoryForm()
     args['form'] = form
     address['Новая категория'] = request.get_full_path()
+    address_list.append('Новая категория')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'category_new.html', args)
 
 
@@ -504,6 +542,7 @@ def comment_delete(request):
 def user_profile(request, username):
     args = {}
     address = {}
+    address_list = []
     user = User.objects.get(username=username)
     user_comments_count = user.author_comments.all().count()
     user_form = UserForm(instance=user)
@@ -515,7 +554,9 @@ def user_profile(request, username):
     args['user_comments_count'] = user_comments_count
     args['profile_user'] = profile_user
     address[user.username] = request.get_full_path()
+    address_list.append(user.username)
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'user_profile.html', args)
 
 
@@ -526,6 +567,7 @@ def user_profile(request, username):
 def change_password(request):
     args = {}
     address = {}
+    address_list = []
     user = request.user
     if request.method == "POST":
         form = UserFormChangePassword(request.POST)
@@ -540,8 +582,11 @@ def change_password(request):
     form = UserFormChangePassword()
     args['form'] = form
     address[user.username] = '/user/' + user.username + '/'
+    address_list.append(user.username)
     address['Новый пароль'] = request.get_full_path()
+    address_list.append('Новый пароль')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'change_password.html', args)
 
 
@@ -552,6 +597,7 @@ def change_password(request):
 def user_edit(request):
     args = {}
     address = {}
+    address_list = []
     user = request.user
     if request.method == "POST":
         form = UserFormEdit(request.POST, request.FILES)
@@ -575,8 +621,11 @@ def user_edit(request):
     args['profile_form'] = profile_form
     args['user_image'] = user.profile.image
     address[user.username] = '/user/' + user.username + '/'
+    address_list.append(user.username)
     address['Редактирование профиля'] = request.get_full_path()
+    address_list.append('Редактирование профиля')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'user_profile_edit.html', args)
 
 
@@ -613,12 +662,16 @@ def unpublicate_item(request, pk):
 def user_comments(request, username):
     args = {}
     address = {}
+    address_list = []
     user = User.objects.get(username=username)
     comments = user.author_comments.all().values('author__username', 'id', 'author__profile__image', 'item__id',
                                                   'item__category__title', 'item__title', 'created_date', 'text',
                                                   'author__id').order_by('created_date').reverse()
     args['comments'] = comments
     address[user.username] = '/user/' + user.username + '/'
+    address_list.append(user.username)
     address['Комментария пользователя'] = request.get_full_path()
+    address_list.append('Комментария пользователя')
     args['address'] = address
+    args['address_list'] = address_list
     return render(request, 'user_comments.html', args)
