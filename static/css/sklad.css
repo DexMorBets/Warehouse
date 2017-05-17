@@ -11,18 +11,17 @@ body {
 }
 
 .body {
-    /*background: linear-gradient(141deg, #00b344 0%, #1596a5 80%, rgb(41, 137, 173) 100%);*/
-    background-color: #4c59a2;
+    background-color: #5c75cc;
     height: 80px;
     padding: 0;
-    position: relative;
+    position: fixed;
     z-index: 10001;
 }
 
 .content {
     margin-bottom: 50px;
     padding: 0 15px 0 15px;
-    color: #616161;
+    color: #6d6d6d;
 }
 
 .menu {
@@ -32,7 +31,7 @@ body {
 }
 
 a{
-    color: #616161;
+    color: #6d6d6d;
 }
 
 a:hover,
@@ -82,7 +81,8 @@ form {
 }
 
 .btn {
-    border: 2px solid;
+    border: none;
+    padding: 8px 14px;
 }
 
 .log-button,
@@ -155,7 +155,7 @@ form {
     width: 300px;
     outline: none;
     padding: 10px;
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: rgba(230, 230, 230, 0.31);
 }
 
@@ -171,7 +171,7 @@ form {
     box-sizing: border-box;
     outline: none;
     padding: 10px;
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: rgba(230, 230, 230, 0.31);
 }
 
@@ -248,32 +248,23 @@ input[type=checkbox] {
 #sign_up_btn {
     font-size: 20px;
     width: 300px;
-    border: 2px solid #616161;
-    background-color: white;
+    background-color: rgb(228, 228, 228);
     border-radius: 2px;
     color: #616161;
     transition: all 0.3s ease-in-out;
-}
-
-#sign_up_btn:hover,
-#btn_login:hover,
-#btn_login1:hover,
-#btn_search:hover {
-    background-color: rgb(228, 228, 228);
-    border: 2px solid rgb(228, 228, 228);
+    border-bottom: 5px solid #d2d2d2;
 }
 
 #btn_login,
 #btn_login1 {
     margin-bottom: 20px;
     font-size: 20px;
-    border: none;
     width: 300px;
-    background-color: white;
-    border: 2px solid #616161;
+    background-color: rgb(228, 228, 228);
     color: #616161;
     transition: all 0.3s ease-in-out;
     border-radius: 2px;
+    border-bottom: 5px solid #d2d2d2;
 }
 
 #btn_login1 {
@@ -287,6 +278,14 @@ input[type=checkbox] {
     margin: 0 auto;
 }
 
+#sign_up_btn:hover,
+#btn_login:hover,
+#btn_login1:hover,
+#btn_search:hover {
+    background-color: rgb(228, 228, 228);
+    border-color:rgb(228, 228, 228);
+}
+
 .ex {
     padding: 0;
     text-align: center;
@@ -296,14 +295,18 @@ input[type=checkbox] {
     text-align: center;
 }
 
+.pagination {
+    margin: 40px 0;
+}
+
 .pagination li a {
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s ease-in-out;
 }
 
 .pagination li a,
 .pagination li a:hover{
-    color: #616161;
+    color: #6d6d6d;
     border: none;
 }
 
@@ -324,27 +327,23 @@ input[type=checkbox] {
 .main_item_edit,
 .login-div {
     position: relative;
-    margin-top: 11px;
     padding: 30px 30px 60px 30px;
     background-color: #ffffff;
-    border-bottom: 4px solid #e4e4e4;
+    border-bottom: 5px solid #e9e9f3;
+}
+
+.main_item_edit {
+    border-radius: 3px;
 }
 
 .main_item_arrow {
     position: relative;
-    padding: 30px 30px 40px 30px;
     margin-top: 0;
 }
 
 .main {
     margin: 0;
 }
-
-.main_item_edit {
-    margin-bottom: 50px;
-    margin-top: 0;
-}
-
 
 .login-div {
     width: 475px;
@@ -361,10 +360,11 @@ input[type=checkbox] {
 
 #btn_search {
     font-size: 15px;
-    color: #616161;
+    color: #8a8a8a;
     transition: all 0.3s ease-in-out;
     height: auto;
     padding: 11.8px;
+    border-radius: 0px 3px 3px 0;
 }
 
 #btn_search:hover {
@@ -375,13 +375,13 @@ input[type=checkbox] {
 #id_title_search2 {
     font-size: 18px;
     padding: 10px 15px 10px 45px;
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: rgba(230, 230, 230, 0.31);
     height: auto;
 }
 
 #id_title_search2 {
-    background-color: rgba(228, 228, 234, 0.81);
+    background-color: #e9e9f3;
 }
 
 .panel {
@@ -414,7 +414,8 @@ input[type=checkbox] {
 
 .table thead:first-child tr:first-child th{
     border: none;
-    border-bottom: 2px solid #dedede;
+    border-bottom: 5px solid #e4e4e4;
+    padding-bottom: 13px;
 }
 
 .table tbody tr td{
@@ -431,10 +432,6 @@ input[type=checkbox] {
     width: 300px;
 }
 
-.bt {
-    margin-top: 50px;
-}
-
 #error_login {
     text-align: center;
     font-size: 17px;
@@ -446,7 +443,7 @@ div .last {
 
 .main_l {
     padding: 0;
-    margin-top: 12px;
+    margin-top: 40px;
     box-shadow: none;
     border: none;
 }
@@ -454,6 +451,7 @@ div .last {
 .block_margin {
     margin-top: 12px;
     padding-bottom: 30px;
+    border-radius: 2px;
 }
 
 .butt,
@@ -466,12 +464,16 @@ div .last {
     margin: 24px 0 80px 0;
 }
 
+span.input-group-btn {
+    border-radius: 2px;
+}
+
 .btn-1,
 .btn-1-back,
 .btn-1-profit,
 .btn_item,
 .btn_item_edit {
-    padding: 6px 12px;
+    padding: 8px 14px;
     width: 100%;
     color: #ffffff;
     background-color: #ffb733;
@@ -481,9 +483,8 @@ div .last {
 }
 
 .btn-1-profit {
-    color: rgb(85, 212, 241);
-    border: 2px solid rgb(85, 212, 241);
-    background: transparent;
+    background-color: #7289da;
+    border-bottom: 5px solid rgb(92, 117, 204);
 }
 
 .btn-1,
@@ -494,16 +495,16 @@ div .last {
 
 .btn-1,
 .btn-1-back {
-    color: #ffb733;
-    background-color: transparent;
-    border-color: #ffb733;
+    color: white;
+    background-color: #ffb733;
+    border-bottom: 5px solid #e4a42d;
 }
 
 .btn-1-back {
     color: white;
     padding: 8px 12px;
     background-color: #ffb733;
-    border:2px solid #ffb733;
+    border-bottom: 5px solid #e4a42d;
 }
 
 .btn-1-back:hover {
@@ -521,21 +522,21 @@ div .last {
 .btn_item:focus{
     width: 100%;
     color: #ffffff;
-    border-radius: 2px;
+    border-radius: 3px;
     background: #ffb733;
-    border: 2px solid #ffb733;
+    border-color: #ffb733;
 }
 
 .btn-1-profit:hover,
 .btn-1-profit:focus {
-    background-color: rgb(85, 212, 241);
-    border-color: rgb(85, 212, 241);
+    background-color: #7289da;
+    border-color: #7289da;
 }
 
 .btn_item:hover,
 .btn_item_edit:hover{
-    background-color: #ffc55b;
-    border-color: #ffc55b;
+    background-color: orange;
+    border-color: orange;
     color: white;
 }
 
@@ -546,8 +547,10 @@ div .last {
 }
 
 .btn_item {
-    border: 2px solid #ffb733;
-    color: #ffb733;
+    border: 0;
+    color: white;
+    background-color: orange;
+    border-bottom: 5px solid #e4a42d;
 }
 
 .btn_item_edit {
@@ -562,17 +565,18 @@ div .last {
 }
 
 .bt_item_edit {
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
 }
 
 .btn_item_profit {
-    border-color: rgb(85, 212, 241);
-    color: rgb(85, 212, 241);
+    border-color: #5c75cc;
+    color: white;
+    background-color: #7289da;
 }
 
 .btn_item_profit:hover {
-    background-color: rgb(85, 212, 241);
-    border-color: rgb(85, 212, 241);
+    background-color: #7289da;
+    border-color: #7289da;
 }
 
 .act:nth-child(2n) {
@@ -592,7 +596,7 @@ div .last {
 .tr_detail_item_count {
     width: 270px;
     margin: 0 auto 20px auto;
-    border-bottom: 1px solid rgba(165, 165, 165, 0.28);
+    border-bottom: 2px solid rgba(165, 165, 165, 0.28);
     position: relative;
 }
 
@@ -728,10 +732,10 @@ div .last {
     background-color: rgb(255, 92, 92);
     color: white;
     padding: 12px 12px 25px 12px;
-    margin-bottom: 12px;
-    border-radius: 2px;
+    margin-bottom: 20px;
+    border-radius: 3px;
     box-shadow: none;
-    border-bottom: 4px solid rgb(212, 76, 76);
+    border-bottom: 5px solid rgb(212, 76, 76);
     font-size: 6px;
 }
 
@@ -748,7 +752,7 @@ div .last {
 
 .detail_div {
     font-size: 18px;
-    margin: 40px 0 20px 0;
+    margin: 40px 0 0 0;
 }
 
 .goods_arrow {
@@ -804,7 +808,7 @@ div .last {
     padding: 3px 10px 3px 10px;
     margin-left: 10px;
     font-size: 15px;
-    background-color: rgb(85, 212, 241);
+    background-color: #7289da;
     color: white;
     border-radius: 30px;
 }
@@ -853,11 +857,14 @@ div .last {
     cursor: pointer;
     width: 25%;
     background-color: #ffb733;
+    border-radius: 0 3px 0 0;
 }
 
 .comment_delete{
     cursor: pointer;
     left: 475px;
+    width: 25%;
+    border-radius: 0 3px 3px 0;
 }
 
 .comment_delete i {
@@ -872,6 +879,11 @@ div .last {
 .category_add {
     left: 0;
     background-color: #61e47c;
+    border-radius: 3px 0 0 0;
+}
+
+.category_delete {
+    border-radius: 0 3px 0 0;
 }
 
 .category_delete:hover,
@@ -888,6 +900,10 @@ div .last {
     width: 100px;
     margin: auto;
     top: 40%;
+}
+
+.category_delete_text {
+    font-size: 17px;
 }
 
 .detail_input_delete_text {
@@ -967,45 +983,53 @@ div .last {
     font-size: 20px;
     width: 270px;
     margin: 25px auto 0 auto;
-    padding: 6px 12px;
+    padding: 8px 14px;
     text-align: center;
-    border: 2px solid #616161;
-    border-radius: 2px;
+    border-radius: 3px;
     transition-duration: 0.7s;
 }
 
 .delete_button {
-    color: rgb(255, 92, 92);
-    border-color: rgb(255, 92, 92);
+    color: white;
+    background-color: rgb(255, 92, 92);
+    border-bottom: 5px solid #d84e4e;
 }
 
 .hide_button {
+    background-color: rgb(228, 228, 228);
     color: #616161;
-    border-color: #616161;
+    border-bottom: 5px solid #d2d2d2;
 }
 
 .hide_button:hover {
     background-color: rgb(228, 228, 228);
-    border-color: rgb(228, 228, 228);
+    border-bottom: 5px solid rgb(228, 228, 228);
 }
 
 .delete_button:hover {
     color: white;
     background-color: rgb(255, 92, 92);
-    border: 2px solid rgb(255, 92, 92);
+    border-bottom: 5px solid rgb(255, 92, 92);
+}
+
+.publish_button {
+    background-color: rgb(66, 199, 117);
+    color: white;
+    border-bottom: 5px solid #37a05f;
 }
 
 .publish_button:hover {
     color: white;
     background-color: rgb(66, 199, 117);
-    border: 2px solid rgb(66, 199, 117);
+    border-bottom: 5px solid rgb(66, 199, 117);
 }
 
 .bt1{
     margin: 35px auto 0 auto;
-    border: 2px solid #ffb733;
-    color: #ffb733;
     font-size: 20px;
+    background-color: orange;
+    color: white;
+    border-bottom: 5px solid #e4a42d;
 }
 
 .hidden_detail {
@@ -1024,15 +1048,15 @@ div .last {
 }
 
 .detail_title_d {
-    margin-top: 40px;
+    margin-top: 65px;
 }
 
 .border_style,
 .border_style_login {
     margin-top: 12px;
-    height: 6px;
-    /*background: linear-gradient(141deg, #00b344 0%, #1596a5 80%, rgb(41, 137, 173) 100%);*/
-    background-color: #4c59a2;
+    height: 8px;
+    background-color: #5c75cc;
+    border-radius: 3px 3px 0 0;
 }
 
 .border_style_login {
@@ -1059,7 +1083,7 @@ div .last {
 
 .symbol {
     font-size: 20px;
-    color: rgb(85, 212, 241);
+    color: #7289da;
     margin-left: 3px;
     font-weight: 700;
 }
@@ -1098,14 +1122,16 @@ td {
 .password_change_save {
     width: 270px;
     font-size: 20px;
-    border: 2px solid #616161;
+    background-color: rgb(228, 228, 228);
     color: #616161;
     margin-top: 20px;
+    border-bottom: 5px solid #d2d2d2;
 }
 
 .password_change {
-    border: 2px solid rgb(217, 218, 54);
-    color: rgb(217, 218, 54);
+    background-color: #f9d000;
+    color: white;
+    border-color: rgb(226, 189, 0);
 }
 
 .category_delete .glyphicon-trash,
@@ -1116,12 +1142,12 @@ td {
 .password_change_save:hover {
     background-color: rgb(228, 228, 228);
     color: #616161;
-    border: 2px solid rgb(228, 228, 228);
+    border-bottom: 5px solid rgb(228, 228, 228);
 }
 
 .password_change:hover {
-    background-color: rgb(217, 218, 54);
-    border: 2px solid rgb(217, 218, 54);
+    background-color: #f9d000;
+    border-bottom: 5px solid #f9d000;
 }
 
 .cell {
@@ -1164,10 +1190,11 @@ td {
 }
 
 .arrows {
-    height: 65px;
     padding: 0;
     background-color: white;
-    border-bottom: 4px solid #e4e4e4
+    border-bottom: 5px solid #e9e9f3;
+    border-radius: 0 0 3px 3px;
+    padding-bottom: 30px;
 }
 
 .arrows img {
@@ -1175,13 +1202,27 @@ td {
     height: 13px;
 }
 
-.arrows div {
-    width: 50%;
-    padding: 15px 100px;
+.arrows div.arrows-block div {
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
     transition: all 0.3s ease-in-out;
 }
 
-.arrows div:hover {
+.arrows div.arrows-block {
+    width: 270px;
+    margin: 0 auto;
+}
+
+.left-arrow {
+    padding: 20px;
+}
+
+.right-arrow {
+    padding: 20px 15px 22px 24px;
+}
+
+.arrows div.arrows-block div:hover {
     background-color: rgba(222, 222, 222, 0.63);
     border-color: rgba(222, 222, 222, 0.63);
 }
@@ -1197,8 +1238,24 @@ td {
 
 .comment_published {
     margin-bottom: 20px;
-    padding: 15px 15px 20px 0;
+    padding: 15px 15px 45px 0;
 
+}
+
+.span-comment-delete {
+    position: absolute;
+    bottom: 13px;
+    right: 20px;
+    color: rgb(255, 92, 92);
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.span-comment-delete:hover {
+    color: white;
+    background-color: rgb(255, 92, 92);
+    border-radius: 3px;
 }
 
 .comment_published .comment_delete .glyphicon-trash {
@@ -1210,6 +1267,7 @@ td {
     height: 100%;
     border: none;
     background-color: #ffb733;
+    border-radius: 0 3px 0 0;
 }
 
 .comment_author {
@@ -1222,10 +1280,9 @@ td {
 }
 
 .comment_text {
-    padding: 8px 0 0 5px;
-    font-size: 16px;
+    padding: 8px 0 8px 5px;
+    font-size: 15px;
     float: right;
-    height: 70px;
     width: 350px;
     word-wrap:break-word;
 }
@@ -1253,11 +1310,13 @@ td {
 
 .hr {
     margin-bottom: 50px;
-    border-bottom: 1px solid #e0e0e0;
+    margin-top: 50px;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .comment_not {
     font-size: 20px;
+    color: #adadad;
 }
 
 .comment_avatar {
@@ -1274,6 +1333,7 @@ td {
 
 .comment_avatar .avatar_default_block i.fa-user-circle-o {
     font-size: 55px;
+    margin-top: 8px;
 }
 
 .comment_avatar_img {
@@ -1336,11 +1396,11 @@ td {
 
 .table>tbody>tr>td {
     padding: 15px 15px;
-    color: #616161;
+    color: #6d6d6d;
 }
 
 .comments_count {
-    color: #616161;
+    color: #8a8a8a;
     font-size: 20px;
 }
 
@@ -1451,7 +1511,7 @@ td {
 }
 
 .search_mar {
-    margin-bottom: 28px;
+    margin: 10px 0 28px 0;
 }
 
 .search_bt {
@@ -1474,13 +1534,14 @@ td {
 }
 
 .user_items_bt {
-    border-color: rgb(85, 212, 241);
-    color: rgb(85, 212, 241);
+    background-color: #7289da;
+    color: white;
+    border-color: rgb(92, 117, 204);
 }
 
 .user_items_bt:hover {
-    border-color: rgb(85, 212, 241);
-    background-color: rgb(85, 212, 241);
+    border-color: #7289da;
+    background-color: #7289da;
 }
 
 .navbar-block {
@@ -1507,7 +1568,7 @@ textarea:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s 
 textarea:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
 
 table thead {
-    color: #616161;
+    color: #6d6d6d;
 }
 
 .search_mar #btn_search {
@@ -1515,7 +1576,7 @@ table thead {
 }
 
 .search_mar #btn_search:hover {
-    background-color: rgba(204, 204, 210, 0.81);
+    background-color: #d8d8ea;
 }
 
 .profile .tr_detail_item {
@@ -1550,7 +1611,7 @@ select option:focus {
 }
 
 .comment_div i {
-    color: #b9b9b9;
+    color: #d5d5de;
     font-size: 24px;
     margin-right: 5px;
 }
@@ -1558,7 +1619,7 @@ select option:focus {
 .det_ch1 i {
     font-size: 30px;
     margin-right: 5px;
-    color: #ffb733;
+    color: #d5d5de;
     transition: all 0.3s ease-in-out;
 }
 
@@ -1572,7 +1633,7 @@ select option:focus {
 .tr_detail_item strong,
 .tr_detail strong {
     font-size: 18px;
-    color: #b7b7b7;
+    color: #d0d0d0;
     font-weight: 100;
     margin-right: 15px;
 }
@@ -1591,8 +1652,8 @@ select option:focus {
 }
 
 .main_item_arrow i {
-    font-size: 35px;
-    color: #808080;
+    font-size: 25px;
+    color: #bfbfbf;
 }
 
 .det_ch i{
@@ -1662,10 +1723,48 @@ form .input-group i.fa-search {
     right: -30px;
     top: -42px;
     font-size: 25px;
+    cursor: pointer;
 }
 
 .tr_detail_profile {
     width: 270px;
+}
+
+.address {
+    margin-bottom: 27px;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 2px;
+    border-bottom: 5px solid #e9e9f3;
+    border-radius: 3px;
+}
+
+.address,
+.address a {
+    color: #999;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.address a:hover,
+.address a:active {
+    color: orange;
+}
+
+.address i {
+    font-size: 20px;
+}
+
+.address span.address-slash {
+    font-size: 18px;
+    margin: 0 15px;
+    color: #c5c5c5;
+}
+
+.address span.address-slash i {
+    font-size: 11px;
+    bottom: 3px;
+    position: relative;
 }
 
 
@@ -1690,7 +1789,7 @@ form .input-group i.fa-search {
     padding: 0 30px 0 10px;
     position: relative;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .cd-dropdown > span:after {
@@ -1809,7 +1908,7 @@ form .input-group i.fa-search {
     height: 100%;
     min-width: 1000px;
     /*background: #4c59a2  url(http://hello-site.ru//main/images/preloads/tail-spin.svg) center center no-repeat;*/
-    background: #4c59a2  url(../img/tail-spin.svg) center center no-repeat;
+    background: #5c75cc  url(../img/tail-spin.svg) center center no-repeat;
     background-size: 160px;
 }
 

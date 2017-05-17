@@ -4,6 +4,14 @@
 {% block content %}
     <div id="page" class="hide">3</div>
     <div class="row">
+        <div class="address">
+            <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+            {% for a,b in address.items %}
+                <span class="address-slash"><i class="fa fa-chevron-right" aria-hidden="true"></i></span><a href="{{ b }}">{{ a }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
         <div class="border_style"></div>
     <div class="row">
         <div  class="main clearfix">
@@ -40,7 +48,7 @@
                 </div>
             </div>
             <div>
-                <span class="panel-profit"><strong>Прибыль:</strong> {{ sum_profit }} <span class="symbol">$</span></span>
+                <span class="panel-profit"><strong>Прибыль :</strong> {{ sum_profit }} <span class="symbol">$</span></span>
             </div>
         </div>
     </div>

@@ -3,6 +3,14 @@
 
 {% block content %}
     <div id="page" class="hide">4</div>
+    <div class="row">
+        <div class="address">
+            <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+            {% for a,b in address.items %}
+                <span class="address-slash"><i class="fa fa-chevron-right" aria-hidden="true"></i></span><a href="{{ b }}">{{ a }}</a>
+            {% endfor %}
+        </div>
+    </div>
     <div class="row edit_div">
         {% if comments %}
             {% csrf_token %}
@@ -25,6 +33,7 @@
                         <div class="comment_item"><span>#<a class="commen_item_a" href="{% url "item_detail" pk=comment.item__id %}">{{ comment.item__category__title }} {{ comment.item__title }}</a></span></div>
                         <div class="comment_date"><span>{{ comment.created_date }}</span></div>
                         <div class="comment_text">{{ comment.text }}</div>
+                        <span class="span-comment-delete">Удалить</span>
                         {% if comment.author__id == user.id %}
                             <div class="comment_delete"><span class="category_delete_text">Удалить</span></div>
                         {% endif %}

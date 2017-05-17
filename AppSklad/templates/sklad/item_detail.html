@@ -3,11 +3,19 @@
 
 {% block content %}
     <div id="page" class="hide">2</div>
+    <div class="row">
+        <div class="address">
+            <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+            {% for a,b in address.items %}
+                <span class="address-slash"><i class="fa fa-chevron-right" aria-hidden="true"></i></span><a href="{{ b }}">{{ a }}</a>
+            {% endfor %}
+        </div>
+    </div>
     <div class="row edit_div">
         <div class="border_style"></div>
     </div>
     <div class="row edit_div">
-        <div class="main_item_edit arrows_mar">
+        <div {% if previous or next %}style="border: none;" {% endif %} class="main_item_edit arrows_mar">
             <div class="nov_ob2 detail_title">
                 {% if user.is_superuser or user.id == item_values.author__id %}
                     <a class='det_ch' href="{% url 'item_edit' pk=item_values.id %}" class="top-menu log-button">
@@ -53,6 +61,7 @@
                             {{ detail.detail_count}}
                             <span class="symbol">шт.</span>
                         </p>
+                        <p></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -73,22 +82,24 @@
         {% if previous or next %}
             <div class="row edit_div">
                 <div class="arrows clearfix">
-                    {% if previous %}
-                        <a href="{% url 'item_detail' pk=previous %}">
-                            <div class="main_item_arrow" style="float: left">
-{#                                <img class="left_arrow" src="{% static "img/Left.png" %}" alt="Previous">#}
-                                <i class="left_arrow fa fa-long-arrow-left" aria-hidden="true"></i>
-                            </div>
-                        </a>
-                    {% endif %}
-                    {% if next %}
-                        <a href="{% url 'item_detail' pk=next %}">
-                            <div class="main_item_arrow" style="float: right">
-{#                                <img class="right_arrow" src="{% static "img/Right.png" %}" alt="Next">#}
-                                <i class="left_arrow fa fa-long-arrow-right" aria-hidden="true"></i>
-                            </div>
-                        </a>
-                    {% endif %}
+                    <div class="arrows-block clearfix">
+                        {% if previous %}
+                            <a href="{% url 'item_detail' pk=previous %}">
+                                <div class="main_item_arrow left-arrow" style="float: left">
+    {#                                <img class="left_arrow" src="{% static "img/Left.png" %}" alt="Previous">#}
+                                    <i class="left_arrow fa fa-chevron-left" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+                        {% if next %}
+                            <a href="{% url 'item_detail' pk=next %}">
+                                <div class="main_item_arrow right-arrow" style="float: right">
+    {#                                <img class="right_arrow" src="{% static "img/Right.png" %}" alt="Next">#}
+                                    <i class="left_arrow fa fa-chevron-right" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         {% endif %}
@@ -125,6 +136,7 @@
                         </a>
                         <div class="comment_date"><span>{{ comment.created_date }}</span></div>
                         <div class="comment_text">{{ comment.text }}</div>
+                        <span class="span-comment-delete">Удалить</span>
                         {% if comment.author__id == user.id %}
                             <div class="comment_delete"><span class="category_delete_text">Удалить</span></div>
                         {% endif %}
@@ -139,6 +151,6 @@
     {% endif %}
     <script src="{% static "js/jquery-3.1.1.min.js" %}"></script>
     <script src="{% static "js/Own/min/sendComment.js" %}" async></script>
-    <script src="{% static "js/Own/min/deleteComment.js" %}" async></script>
+    <script src="{% static "js/Own/deleteComment.js" %}" async></script>
 {#    <script src="{% static "js/Own/blurComment.js" %}"></script>#}
 {% endblock content %}

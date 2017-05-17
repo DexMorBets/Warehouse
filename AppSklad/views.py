@@ -30,19 +30,21 @@ def details_list(request, page_number=1):
     if request.GET and len(request.GET.get('title')) > 0:
         newuser_form = SearchForm(request.GET)
         all_details = Detail.objects.filter(title__contains=request.GET.get('title')).\
-            values('id', 'title', 'category__title', 'price', 'count', 'color__title', 'color__code').\
+            values('id', 'title', 'category__title_plural', 'price', 'count', 'color__title', 'color__code').\
             order_by('category__title', 'title')
         args['form'] = newuser_form
         args['new_details'] = all_details
         args['pg'] = False
     else:
-        all_details = Detail.objects.all().values('id', 'title', 'category__title', 'price', 'count', 'color__title',
-                                                  'color__code').order_by('category__title', 'title')
+        all_details = Detail.objects.all().values('id', 'title', 'category__title_plural', 'price', 'count',
+                                                  'color__title', 'color__code').order_by('category__title_plural',
+                                                                                          'title')
         current_page = Paginator(all_details, 10)
         args['new_details'] = current_page.page(page_number)
         count = all_details.count()
         args['pg'] = True
         args['count'] = count
+    args['address'] = {'Детали': '/'}
     return render(request, 'sklad/details_list.html', args)
 
 
@@ -67,6 +69,8 @@ def available_goods(item_details, details):
 
 def goods_list(request, category_value=None, username=None):
     args = {}
+    address = {}
+    address['Товар'] = '/goods/'
     categories = Category.objects.all().values('id', 'title_plural', 'item_count').order_by('-item_count')
     all_items_args = {'publicate': True}
     if category_value is None:
@@ -75,6 +79,7 @@ def goods_list(request, category_value=None, username=None):
         all_items_args['category__title_plural'] = category_value
     if username:
         all_items_args['author__username'] = username
+        address[username] = '/user/' + str(User.objects.filter(username=username).values_list('username', flat=True)[0]) + '/'
         if category_value is None:
             unpubliched_items_args['author__username'] = username
     if request.GET and len(request.GET.get('title')) > 0:
@@ -92,6 +97,8 @@ def goods_list(request, category_value=None, username=None):
             unpubliched_item['comments_count'] = Item.objects.get(id=unpubliched_item['id']).item_comments.all().count()
         args['unpubliched_items'] = unpubliched_items
         args['unpubliched_count'] = unpubliched_count
+    else:
+        address[category_value] = '/goods/category/' + category_value + '/'
     for item in all_items:
         item['comments_count'] = Item.objects.get(id=item['id']).item_comments.all().count()
     args['category_value'] = category_value
@@ -109,6 +116,7 @@ def goods_list(request, category_value=None, username=None):
         args['search'] = False
     args['categories'] = categories
     args['all_items'] = all_items
+    args['address'] = address
     if category_value is None:
         return render(request, 'sklad/goods_list.html', args)
     else:
@@ -139,13 +147,16 @@ def profit_available_goods(all_items, dict_details):
 
 def item_profit(request, category=None):
     args = {}
+    address = {}
     list_of_items = []
     sum_profit = 0
+    address['Прибыль'] = '/goods/profit/items/'
 
     if category:
         all_items = Item.objects.all().values('id', 'available', 'profit', 'expenses', 'category__title', 'title').filter(category__title_plural=category, publicate=True, profit__gt=0).order_by("title")  # набор всех товаров
         details = Detail.objects.all().values('id', 'count', 'title', 'category__title').filter(category__title_plural=category).order_by("title")  # набор всех деталей
         args['category'] = category
+        address[category] = '/goods/category/' + category + '/'
     else:
         all_items = Item.objects.all().values('id', 'available', 'profit', 'expenses', 'category__title', 'title').filter(publicate=True, profit__gt=0).order_by("title")  # набор всех товаров
         args['all_items'] = all_items
@@ -198,6 +209,7 @@ def item_profit(request, category=None):
     args['details'] = details
     args['sum_profit'] = sum_profit
     args['dict_details'] = dict_details
+    args['address'] = address
     return render(request, 'sklad/goods_profit.html', args)
 
 
@@ -206,6 +218,7 @@ def item_profit(request, category=None):
 
 def item_detail(request, pk):
     args = {}
+    address = {}
     item = get_object_or_404(Item, pk=pk)
     item_values = Item.objects.filter(id=pk).values('id', 'author__id', 'title', 'category__title', 'image',
                                                     'author__username', 'price', 'publicate')[0]
@@ -234,6 +247,9 @@ def item_detail(request, pk):
     args['item_values'] = item_values
     args['form'] = form
     args['itemcomments'] = itemcomments
+    address['Товар'] = '/goods/'
+    address[item_values['category__title'] + ' ' + item_values['title']] = '/goods/' + pk + '/'
+    args['address'] = address
     return render(request, 'item_detail.html', args)
 
 
@@ -243,8 +259,9 @@ def item_detail(request, pk):
 @login_required
 def item_edit(request, pk):
     args = {}
+    address = {}
     item = get_object_or_404(Item, pk=pk)
-    item_values = Item.objects.all().values('id', 'image', 'category__id').get(pk=pk)
+    item_values = Item.objects.all().values('id', 'title', 'category__title', 'image', 'category__id').get(pk=pk)
     itemDetailsFormSet = inlineformset_factory(Item, ItemDetails, form=ItemDetailsForm, fk_name='item', fields=('detail', 'detail_count'), max_num=11, extra=8)
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES, instance=item)
@@ -293,6 +310,10 @@ def item_edit(request, pk):
     args['formset'] = formset
     args['form'] = form
     args['item_image'] = item_values['image']
+    address['Товар'] = '/goods/'
+    address[item_values['category__title'] + ' ' + item_values['title']] = '/goods/' + pk + '/'
+    address['Редактирование товара'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'item_edit.html', args)
 
 
@@ -312,6 +333,7 @@ def item_delete(request, pk):
 @login_required
 def item_new(request, category=None):
     args = {}
+    address = {}
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -332,6 +354,9 @@ def item_new(request, category=None):
     args['form'] = form
     if category:
         args['category'] = category
+    address['Товар'] = '/goods/'
+    address['Новый товар'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'item_edit.html', args)
 
 
@@ -340,10 +365,14 @@ def item_new(request, category=None):
 
 def details_detail(request, pk):
     args = {}
-    model = Detail.objects.all().values('id', 'title', 'category__title_plural', 'price', 'count', 'color__title',
-                                        'color__code', 'image')
+    address = {}
+    model = Detail.objects.filter(id=pk).values('id', 'title', 'category__title_plural', 'category__title', 'price',
+                                                'count', 'color__title', 'color__code', 'image')
     detail = get_object_or_404(model, id=pk)
     args['detail'] = detail
+    address['Детали'] = '/'
+    address[model[0]['title']] = request.get_full_path()
+    args['address'] = address
     return render(request, 'details_detail.html', args)
 
 
@@ -353,6 +382,7 @@ def details_detail(request, pk):
 @login_required
 def detail_edit(request, pk):
     args = {}
+    address = {}
     detail = get_object_or_404(Detail, id=pk)
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES, instance=detail)
@@ -368,6 +398,10 @@ def detail_edit(request, pk):
         form = DetailForm(instance=detail)
     args['form'] = form
     args['detail_image'] = detail.image
+    address['Детали'] = '/'
+    address[detail.title] = '/details/' + pk + '/'
+    address['Редактирование детали'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'detail_edit.html', args)
 
 
@@ -377,6 +411,7 @@ def detail_edit(request, pk):
 @login_required
 def detail_new(request):
     args = {}
+    address = {}
     new = True
     if request.method == "POST":
         form = DetailForm(request.POST, request.FILES)
@@ -393,6 +428,9 @@ def detail_new(request):
         form = DetailForm()
     args['form'] = form
     args['new'] = new
+    address['Детали'] = '/'
+    address['Новая деталь'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'detail_edit.html', args)
 
 
@@ -412,6 +450,7 @@ def detail_delete(request, pk):
 @login_required
 def category_new(request):
     args = {}
+    address = {}
     if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -429,6 +468,8 @@ def category_new(request):
     else:
         form = CategoryForm()
     args['form'] = form
+    address['Новая категория'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'category_new.html', args)
 
 
@@ -462,6 +503,7 @@ def comment_delete(request):
 @login_required
 def user_profile(request, username):
     args = {}
+    address = {}
     user = User.objects.get(username=username)
     user_comments_count = user.author_comments.all().count()
     user_form = UserForm(instance=user)
@@ -472,6 +514,8 @@ def user_profile(request, username):
     args['user_object'] = user
     args['user_comments_count'] = user_comments_count
     args['profile_user'] = profile_user
+    address[user.username] = request.get_full_path()
+    args['address'] = address
     return render(request, 'user_profile.html', args)
 
 
@@ -481,8 +525,9 @@ def user_profile(request, username):
 @login_required
 def change_password(request):
     args = {}
+    address = {}
+    user = request.user
     if request.method == "POST":
-        user = request.user
         form = UserFormChangePassword(request.POST)
         if form.is_valid():
             if form['password_ch'].value() == form['password_ch_new'].value():
@@ -494,6 +539,9 @@ def change_password(request):
                 args['error'] = 'Пароли не совпадают!'
     form = UserFormChangePassword()
     args['form'] = form
+    address[user.username] = '/user/' + user.username + '/'
+    address['Новый пароль'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'change_password.html', args)
 
 
@@ -503,6 +551,7 @@ def change_password(request):
 @login_required
 def user_edit(request):
     args = {}
+    address = {}
     user = request.user
     if request.method == "POST":
         form = UserFormEdit(request.POST, request.FILES)
@@ -525,6 +574,9 @@ def user_edit(request):
     args['form'] = form
     args['profile_form'] = profile_form
     args['user_image'] = user.profile.image
+    address[user.username] = '/user/' + user.username + '/'
+    address['Редактирование профиля'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'user_profile_edit.html', args)
 
 
@@ -560,9 +612,13 @@ def unpublicate_item(request, pk):
 @login_required()
 def user_comments(request, username):
     args = {}
-    userr = User.objects.get(username=username)
-    comments = userr.author_comments.all().values('author__username', 'id', 'author__profile__image', 'item__id',
+    address = {}
+    user = User.objects.get(username=username)
+    comments = user.author_comments.all().values('author__username', 'id', 'author__profile__image', 'item__id',
                                                   'item__category__title', 'item__title', 'created_date', 'text',
                                                   'author__id').order_by('created_date').reverse()
     args['comments'] = comments
+    address[user.username] = '/user/' + user.username + '/'
+    address['Комментария пользователя'] = request.get_full_path()
+    args['address'] = address
     return render(request, 'user_comments.html', args)
