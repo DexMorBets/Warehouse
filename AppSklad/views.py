@@ -368,7 +368,6 @@ def item_new(request, category=None):
         else:
             form = ItemForm(request.POST)
     else:
-
         form = ItemForm()
     args['form'] = form
     if category:
