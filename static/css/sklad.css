@@ -2224,4 +2224,63 @@ td i.fa-tint {
     .tr_detail p i.fa-tint {
         bottom: 5px;
     }
+    .detail_input,
+    .detail_input_elem,
+    .item_input_elem,
+    .item_input,
+    .item_input_count {
+        border-radius: 4px;
+    }
+    .inp_detail {
+        width: auto;
+        margin: 0 auto 20px auto;
+    }
+
+    .detail_input,
+    .detail_input_elem,
+    .item_input_elem,
+    .item_input,
+    .item_input_count {
+        width: 100%;
+    }
+    #id_username,
+    #id_password,
+    #id_password1,
+    #id_password2,
+    #id_price,
+    #id_price1,
+    #id_title1,
+    #id_count,
+    #id_username_login,
+    #id_password_login,
+    .change_password_input {
+        width: 250px;
+    }
+    .inp_detail .symbol {
+        font-size: 19px;
+        margin-left: 10px;
+    }
+    .cd-dropdown > span {
+        border-radius: 4px;
+    }
+    .cd-dropdown,
+    .cd-select {
+        width: 100%;
+        border-radius: 4px;
+    }
+    .cd-dropdown ul {
+        border-radius: 4px;
+    }
+    .cd-dropdown ul li {
+        border-radius: 4px;
+    }
+    .cd-dropdown ul li span {
+        border-radius: 4px;
+    }
+    .tr_item_item_image {
+        margin: 0 auto 20px auto;
+    }
+    #btn_login1 {
+        width: 100%;
+    }
 }
