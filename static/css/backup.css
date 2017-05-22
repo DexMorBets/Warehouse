@@ -9,6 +9,7 @@ body {
     background-color: rgba(239, 239, 244, 0.81);
     font-family: 'Oswald', sans-serif;
 }
+
 .body {
     background-color: #5c75cc;
     height: 80px;
@@ -16,29 +17,23 @@ body {
     position: fixed;
     z-index: 10001;
 }
-.body .body-block {
-    margin: 0 auto;
-    max-width: 980px;
-    min-width: 600px;
-}
+
 .content {
     margin: 120px 0 50px 0;
     color: #6d6d6d;
     padding: 0 10px 0 10px;
 }
-.content .content-block {
-    margin: 0 auto;
-    max-width: 960px;
-    min-width: 600px;
-}
+
 .menu {
     text-align: center;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
+
 a{
     color: #6d6d6d;
 }
+
 a:hover,
 a:active,
 a:checked,
@@ -1961,25 +1956,18 @@ td i.fa-tint {
 /*----------------------------------------------------------------------------------------------*/
 
 @media screen and (max-device-width: 767px) {
-    body {
-        min-width: 50px;
-    }
     .body {
-        height: 60px;
-        padding: 0 10px;
-    }
-    .body .body-block {
-        min-width: 100px;
+        height: 170px;
+        padding: 0 30px;
     }
     .content {
-        margin: 70px 0 0 0;
-        padding: 0 3px;
+        margin: 200px 0 15px 0;
     }
     .navbar-block {
-        padding: 0;
+        padding: 35px 10px;
     }
     .logo {
-        font-size: 25px;
+        font-size: 70px;
     }
     .main_logo {
         margin: 0;
@@ -1987,55 +1975,55 @@ td i.fa-tint {
         bottom: 5px;
     }
     .header_avatar_img {
-        width: 40px;
-        height: 40px;
-        margin: 10px 12px 0 0;
+        width: 100px;
+        height: 100px;
+        margin: 0 30px 0 0;
     }
     .header_login,
     .header_login:hover,
     .header_login:focus,
     .header_login:active,
     .header_login:visited {
-        font-size: 15px;
+        font-size: 38px;
     }
     .header_login_div {
-        margin-top: 18px;
+        margin-top: 20px;
     }
     .border_style,
     .border_style_login {
-        height: 13px;
-        border-radius: 4px 4px 0 0;
-        margin-top: 9px;
+        height: 35px;
+        border-radius: 8px 8px 0 0;
     }
     .title_details_list {
-        font-size: 23px;
+        font-size: 75px;
     }
     .main,
     .main_item_edit,
     .login-div {
+        padding: 70px 30px 70px 30px;
+        border-bottom: 13px solid #cecece;
     }
     .detail_title {
-        margin-bottom: 30px;
+        margin-bottom: 90px;
     }
     #id_title_search,
     #id_title_search2 {
-        font-size: 17px;
-        padding: 10px 10px 10px 37px;
-        border-radius: 4px;
+        font-size: 50px;
+        padding: 30px 30px 30px 110px;
+        border-radius: 13px;
     }
     #btn_search {
-        font-size: 17px;
-        padding: 10px;
+        font-size: 50px;
+        padding: 30px;
     }
     .panel {
-        margin-top: 15px;
-        margin-bottom: 0;
+        margin-top: 50px;
     }
     .panel-overflow {
         overflow-x: scroll;
     }
     thead tr th {
-        font-size: 17px;
+        font-size: 50px;
     }
     .table>tbody>tr>td,
     .table>tbody>tr>th,
@@ -2043,106 +2031,107 @@ td i.fa-tint {
     .table>tfoot>tr>th,
     .table>thead>tr>td,
     .table>thead>tr>th {
+        padding: 20px;
         white-space: nowrap;
     }
     .table>tbody>tr>td {
-        font-size: 15px;
+        font-size: 45px;
+        padding: 30px;
+    }
+    .table thead:first-child tr:first-child th {
+        padding-bottom: 35px;
     }
     .symbol {
-        font-size: 15px;
-        margin-left: 5px;
+        font-size: 50px;
+        margin-left: 10px;
     }
     .navbar-block i.fa-bars {
         display: block;
-        font-size: 30px;
+        font-size: 85px;
         color: white;
         position: absolute;
-        top: 15px;
-        left: 20px;
-        margin-right: 5px;
+        top: 45px;
+        left: 45px;
+        margin-right: 70px;
     }
     .navbar-block .menu {
         display: none;
     }
     .address {
-        margin-bottom: 0;
-        padding: 10px;
+        padding: 30px 35px;
+        border-bottom: 13px solid #e9e9f3;
+        border-radius: 8px;
+        margin-bottom: 15px;
     }
     .address a {
-        font-size: 16px;
+        font-size: 46px;
     }
     .address i {
-        font-size: 22px;
+        font-size: 60px;
     }
     .address i.fa-home {
+        margin-right: 10px;
     }
     .address span.address-slash {
-        margin: 0 10px;
+        margin: 0 25px;
     }
     .address span.address-slash i {
-        font-size: 10px;
+        font-size: 31px;
+        bottom: 6px;
     }
     form .input-group i.fa-search {
-        font-size: 20px;
-        left: 10px;
-        top: 12px;
+        font-size: 50px;
+        left: 35px;
+        top: 40px;
     }
     td i.fa-tint {
-        font-size: 15px;
+        font-size: 45px;
+        margin-left: 10px;
     }
     .table thead:first-child tr:first-child th {
-
+        border-bottom: 15px solid #e4e4e4;
     }
     .table tbody tr td {
         border-top: 2px solid #efefef;
         border-right: 2px solid #efefef;
-        padding: 10px;
     }
     .btn-1,
     .btn-1-back,
     .btn-1-profit {
+        font-size: 60px;
     }
     .btn-1,
     .btn-1-back,
     .btn-1-profit,
     .btn_item,
     .btn_item_edit {
-
+        border-radius: 13px;
+        padding: 24px 14px;
     }
     .btn-1, .btn-1-back {
-
-    }
-    .main {
-        border-radius: 0 0 4px 4px;
-        padding: 30px 10px 60px 10px;
+        border-bottom: 13px solid #e4a42d;
     }
     .main_l {
-        margin-top: 0;
-        padding: 30px 0 0 0;
-        padding: 30px 0 0 0;
+        padding: 50px 0;
+        margin: 0;
+        border: none;
+    }
+    .main {
+        border-radius: 0 0 13px 13px;
     }
     .KW_progressContainer {
-
-    }
-    .pagination {
-        margin: 20px 0;
+        height: 20px;
     }
     .pagination li a {
-        font-size: 15px;
+        font-size: 45px;
     }
     .pagination>li>a,
     .pagination>li>span {
-
+        padding: 12px 20px;
     }
     .main_logo1 {
         position: absolute;
-        top: 21px;
-        left: 70px;
-    }
-    .content .content-block {
-        min-width: 50px;
-    }
-    .butt {
-        margin: 0 auto;
+        top: 55px;
+        left: 170px;
     }
 }

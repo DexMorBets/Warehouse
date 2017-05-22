@@ -4,6 +4,7 @@
 <html lang="ru">
     <head>
         <title>Warehouse</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 {#        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">#}
 {#        <link rel="stylesheet" href="{% static 'css/sklad.css' %}">#}
@@ -17,11 +18,11 @@
     </head>
     <body>
         <div class="body navbar-fixed-top">
-            <div class="row" style="margin: 0 auto; max-width: 980px; min-width: 600px;">
+            <div class="row body-block">
                 <div class="navbar-block">
                     <i class="fa fa-bars" aria-hidden="true"></i>
-                    <div class='main_logo1 cell' style="">
-                        <div class="">
+                    <div class='main_logo1 cell'>
+                        <div>
                             <h1 class="main_logo"><a class="logo" href="{% url 'details_list' %}">WAREHOUSE</a></h1>
                         </div>
                     </div>
@@ -71,7 +72,7 @@
         </div>
         <script type="text/javascript">function fadeOutnojquery(a){a.style.opacity=1;var b=setInterval(function(){a.style.opacity=a.style.opacity-.05,a.style.opacity<=.05&&(clearInterval(b),hellopreloader.style.display="none")},10)}var hellopreloader=document.getElementById("hellopreloader_preload");window.onload=function(){setTimeout(function(){fadeOutnojquery(hellopreloader)},300)};</script>
         <div class="page-padd content">
-            <div class="row" style="margin: 0 auto; max-width: 960px; min-width: 600px;">
+            <div class="row content-block">
 {#            <script src="{% static "js/jquery-3.1.1.min.js" %}" defer></script>#}
                 {% block content %}{% endblock %}
                 {% block login %}{% endblock %}
