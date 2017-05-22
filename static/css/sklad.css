@@ -1967,6 +1967,7 @@ td i.fa-tint {
 @media screen and (max-device-width: 767px) {
     body {
         min-width: 50px;
+        padding-bottom: 20px;
     }
     .body {
         height: 60px;
@@ -2134,7 +2135,7 @@ td i.fa-tint {
 
     }
     .pagination {
-        margin: 20px 0;
+        margin: 20px 0 0 0;
     }
     .pagination li a {
         font-size: 15px;
@@ -2175,5 +2176,52 @@ td i.fa-tint {
     .zoom:visited,
     .zoom:focus {
         padding-bottom: 5px;
+    }
+    .avatar_div {
+        margin-bottom: 30px;
+    }
+    .tr_detail,
+    .tr_detail_item,
+    .tr_detail_item_image,
+    .tr_item_item_image,
+    .tr_detail_item_count {
+        width: auto;
+    }
+    .delete_button,
+    .hide_button,
+    .publish_button {
+        width: auto;
+    }
+    .tr_detail_item strong,
+    .tr_detail strong {
+        font-size: 20px;
+    }
+    .tr_detail p {
+        font-size: 23px;
+        padding-bottom: 5px;
+    }
+    .tr_detail .symbol {
+        font-size: 21px;
+    }
+    .image_block i.fa-cogs,
+    .image_block i.fa-shopping-basket {
+        font-size: 217px;
+    }
+    .image_block {
+        margin: 0 30px;
+        max-width: 270px;
+    }
+    .tr_detail,
+    .tr_detail_item,
+    .tr_detail_item_image,
+    .tr_item_item_image,
+    .tr_detail_item_count {
+        margin: 0 auto 10px auto;
+    }
+    .button_form {
+        margin-top: 30px;
+    }
+    .tr_detail p i.fa-tint {
+        bottom: 5px;
     }
 }
