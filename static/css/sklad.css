@@ -1966,17 +1966,17 @@ td i.fa-tint {
     }
     .body {
         height: 60px;
-        padding: 0 10px;
     }
     .body .body-block {
         min-width: 100px;
+        height: 100%;
     }
     .content {
         margin: 70px 0 0 0;
         padding: 0 3px;
     }
     .navbar-block {
-        padding: 0;
+        padding: 0 10px;
     }
     .logo {
         font-size: 25px;
@@ -2052,7 +2052,8 @@ td i.fa-tint {
         font-size: 15px;
         margin-left: 5px;
     }
-    .navbar-block i.fa-bars {
+    .navbar-block i.fa-bars,
+    .navbar-block i.fa-times {
         display: block;
         font-size: 30px;
         color: white;
@@ -2060,6 +2061,10 @@ td i.fa-tint {
         top: 15px;
         left: 20px;
         margin-right: 5px;
+    }
+    .navbar-block i.fa-times {
+        top: 14px;
+        font-size: 29px;
     }
     .navbar-block .menu {
         display: none;
@@ -2119,7 +2124,6 @@ td i.fa-tint {
     .main_l {
         margin-top: 0;
         padding: 30px 0 0 0;
-        padding: 30px 0 0 0;
     }
     .KW_progressContainer {
 
@@ -2144,5 +2148,27 @@ td i.fa-tint {
     }
     .butt {
         margin: 0 auto;
+    }
+    .menu-hidden {
+        position: relative;
+        z-index: 10001;
+        background-color: #5c75cc;
+        display: none;
+    }
+    .menu-hidden .menu-item {
+        text-align: center;
+        padding: 15px 0;
+    }
+    .menu-hidden .menu-item:last-child {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    .menu-hidden .menu-item a {
+        font-size: 20px;
+    }
+    .zoom,
+    .zoom:visited,
+    .zoom:focus {
+        padding-bottom: 5px;
     }
 }

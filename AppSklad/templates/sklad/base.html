@@ -66,6 +66,11 @@
                     </div>
                 </div>
             </div>
+            <div class="menu-hidden">
+                <div class="menu-item"><a class="zoom details_li" href="{% url 'details_list' %}">ДЕТАЛИ</a></div>
+                <div class="menu-item"><a class="zoom goods_li" href="{% url 'goods_list' %}">ТОВАР</a></div>
+                <div class="menu-item"><a class="zoom plan_li" href="{% url 'items_profit' %}">ПЛАН</a></div>
+            </div>
         </div>
         <div id="hellopreloader">
             <div id="hellopreloader_preload"></div>
@@ -85,6 +90,8 @@
 {#        <script src="{% static "js/jquery-ui.min.js" %}" async></script>#}
         <script src="{% static "js/Own/min/scrollIndicator.js" %}" async></script>
         <script src="{% static "js/Own/min/currentPage.js" %}" async></script>
+        <script src="{% static "js/jquery.tap.js" %}" defer></script>
+        <script src="{% static "js/Own/min/showMenu.js" %}" defer></script>
 {#        <script src="{% static "js/Own/min/page/base.js" %}" async></script>#}
     </body>
 </html>
