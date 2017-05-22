@@ -2062,12 +2062,13 @@ td i.fa-tint {
         font-size: 30px;
         color: white;
         position: absolute;
-        top: 15px;
-        left: 20px;
+        top: 5px;
+        left: 10px;
         margin-right: 5px;
+        padding: 10px;
     }
     .navbar-block i.fa-times {
-        top: 14px;
+        top: 4px;
         font-size: 29px;
     }
     .navbar-block .menu {
