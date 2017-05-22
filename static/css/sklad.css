@@ -19,9 +19,9 @@ body {
 }
 
 .content {
-    margin-bottom: 50px;
-    padding: 0 15px 0 15px;
+    margin: 120px 0 50px 0;
     color: #6d6d6d;
+    padding: 0 10px 0 10px;
 }
 
 .menu {
@@ -343,6 +343,7 @@ input[type=checkbox] {
 
 .main {
     margin: 0;
+    border-radius: 0 0 3px 3px;
 }
 
 .login-div {
@@ -1767,6 +1768,15 @@ form .input-group i.fa-search {
     position: relative;
 }
 
+.navbar-block i.fa-bars {
+    display: none;
+}
+
+td i.fa-tint {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/
 
@@ -1950,54 +1960,169 @@ form .input-group i.fa-search {
         height: 170px;
         padding: 0 30px;
     }
-    .main_logo {
-        font-size: 50px;
+    .content {
+        margin: 200px 0 15px 0;
     }
     .navbar-block {
         padding: 35px 10px;
     }
     .logo {
-        font-size: 55px;
+        font-size: 70px;
+    }
+    .main_logo {
+        margin: 0;
+        position: relative;
+        bottom: 5px;
     }
     .header_avatar_img {
         width: 100px;
         height: 100px;
         margin: 0 30px 0 0;
     }
-    .header_login {
+    a.header_login {
         font-size: 38px;
     }
     .header_login_div {
         margin-top: 20px;
     }
-    .border_style, .border_style_login {
-        height: 15px;
-        margin-top: 50px;
+    .border_style,
+    .border_style_login {
+        height: 35px;
+        border-radius: 8px 8px 0 0;
     }
     .title_details_list {
-        font-size: 60px;
+        font-size: 75px;
     }
-    .main, .main_item_edit, .login-div {
+    .main,
+    .main_item_edit,
+    .login-div {
         padding: 70px 30px 70px 30px;
-        border-bottom: 4px solid #cecece;
+        border-bottom: 13px solid #cecece;
     }
     .detail_title {
         margin-bottom: 90px;
     }
-    #id_title_search, #id_title_search2 {
-        font-size: 40px;
-        padding: 20px 25px;
-        border-radius: 8px;
+    #id_title_search,
+    #id_title_search2 {
+        font-size: 50px;
+        padding: 30px 30px 30px 110px;
+        border-radius: 13px;
     }
     #btn_search {
-        font-size: 35px;
-        padding: 20px 20px 20px 30px;
+        font-size: 50px;
+        padding: 30px;
     }
     .panel {
-        margin-top: 55px;
-        margin-bottom: 55px;
+        margin-top: 50px;
+    }
+    .panel-overflow {
+        overflow-x: scroll;
     }
     thead tr th {
-        font-size: 25px;
+        font-size: 50px;
+    }
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        padding: 20px;
+        white-space: nowrap;
+    }
+    .table>tbody>tr>td {
+        font-size: 45px;
+        padding: 30px;
+    }
+    .table thead:first-child tr:first-child th {
+        padding-bottom: 35px;
+    }
+    .symbol {
+        font-size: 50px;
+        margin-left: 10px;
+    }
+    .navbar-block i.fa-bars {
+        display: block;
+        font-size: 85px;
+        color: white;
+        position: relative;
+        bottom: 18px;
+        left: 15px;
+        margin-right: 70px;
+    }
+    .navbar-block .menu {
+        display: none;
+    }
+    .address {
+        padding: 30px 35px;
+        border-bottom: 13px solid #e9e9f3;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .address a {
+        font-size: 46px;
+    }
+    .address i {
+        font-size: 60px;
+    }
+    .address i.fa-home {
+        margin-right: 10px;
+    }
+    .address span.address-slash {
+        margin: 0 25px;
+    }
+    .address span.address-slash i {
+        font-size: 31px;
+        bottom: 6px;
+    }
+    form .input-group i.fa-search {
+        font-size: 50px;
+        left: 35px;
+        top: 40px;
+    }
+    td i.fa-tint {
+        font-size: 45px;
+        margin-left: 10px;
+    }
+    .table thead:first-child tr:first-child th {
+        border-bottom: 15px solid #e4e4e4;
+    }
+    .table tbody tr td {
+        border-top: 2px solid #efefef;
+        border-right: 2px solid #efefef;
+    }
+    .btn-1,
+    .btn-1-back,
+    .btn-1-profit {
+        font-size: 60px;
+    }
+    .btn-1,
+    .btn-1-back,
+    .btn-1-profit,
+    .btn_item,
+    .btn_item_edit {
+        border-radius: 13px;
+        padding: 24px 14px;
+    }
+    .btn-1, .btn-1-back {
+        border-bottom: 13px solid #e4a42d;
+    }
+    .main_l {
+        padding: 50px 0;
+        margin: 0;
+        border: none;
+    }
+    .main {
+        border-radius: 0 0 13px 13px;
+    }
+    .KW_progressContainer {
+        height: 20px;
+    }
+    .pagination li a {
+        font-size: 45px;
+    }
+    .pagination>li>a,
+    .pagination>li>span {
+        padding: 12px 20px;
     }
 }
