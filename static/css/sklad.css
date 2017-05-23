@@ -1801,6 +1801,9 @@ td i.fa-tint {
     margin-left: 5px;
     font-size: 20px;
 }
+.statusbar-overlay {
+    background-color: #5c75cc;
+}
 
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/
