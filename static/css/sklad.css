@@ -1786,6 +1786,11 @@ td i.fa-tint {
     display: none;
 }
 
+.profile .cd-dropdown, .cd-select,
+.profile .cd-dropdown ul li span {
+    width: 270px;
+}
+
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/
 
@@ -2035,7 +2040,8 @@ td i.fa-tint {
     }
     .panel {
         margin-top: 25px;
-        margin-bottom: 0;
+        margin-bottom: 30px;
+        overflow-x: scroll;
     }
     .panel-overflow {
         overflow-x: scroll;
@@ -2130,7 +2136,7 @@ td i.fa-tint {
     }
     .main_l {
         margin-top: 0;
-        padding: 30px 0 0 0;
+        padding: 0;
     }
     .KW_progressContainer {
 
@@ -2179,7 +2185,7 @@ td i.fa-tint {
         padding-bottom: 5px;
     }
     .avatar_div {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
     .tr_detail,
     .tr_detail_item,
@@ -2268,6 +2274,7 @@ td i.fa-tint {
     .cd-select {
         width: 100%;
         border-radius: 4px;
+        margin: 0 auto;
     }
     .cd-dropdown ul {
         border-radius: 4px;
@@ -2305,5 +2312,62 @@ td i.fa-tint {
     }
     .bt_item_edit {
         margin: 0;
+    }
+    .change_password_input {
+        width: 100%;
+    }
+    .tr_detail_item {
+        margin: 0 auto 20px auto;
+    }
+    .profile .cd-dropdown,
+    .cd-select,
+    .profile .cd-dropdown ul li span {
+        width: 100%;
+    }
+    .search_mar {
+        margin: 10px 0;
+    }
+    .block_margin {
+        margin-bottom: 10px;
+        margin-top: 0;
+        border-radius: 4px;
+        padding: 30px 10px;
+    }
+    .table tbody tr td:last-child {
+        border-right: none;
+    }
+    .comment_div i {
+        font-size: 20px;
+    }
+    .comments_count {
+        font-size: 15px;
+    }
+    .panel-scroll-goods {
+        margin-bottom: 30px;
+    }
+    .hide_panel .butt {
+        margin: 0 auto 20px 0;
+    }
+    .goods_arrow_div {
+        margin: 0 auto 0 auto;
+    }
+    .new-cat {
+        background-color: transparent;
+        padding: 20px 0 0 0;
+    }
+    .category_delete,
+    .category_add {
+        width: 25%;
+    }
+    .category_delete_text,
+    .category_add_text {
+        width: 100%;
+        font-size: 14px;
+    }
+    .butt-row .main_l {
+        margin-bottom: 20px;
+    }
+    .butt-row .main_l:last-child {
+        margin-bottom: 0;
     }
 }
