@@ -2018,9 +2018,10 @@ td i.fa-tint {
     .main,
     .main_item_edit,
     .login-div {
+        padding: 30px 10px 60px 10px;
     }
     .detail_title {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
     #id_title_search,
     #id_title_search2 {
@@ -2033,7 +2034,7 @@ td i.fa-tint {
         padding: 10px;
     }
     .panel {
-        margin-top: 15px;
+        margin-top: 25px;
         margin-bottom: 0;
     }
     .panel-overflow {
@@ -2282,5 +2283,27 @@ td i.fa-tint {
     }
     #btn_login1 {
         width: 100%;
+    }
+    .login-div {
+        width: 100%;
+    }
+    .det_ch1 {
+        top: -73px;
+    }
+    .login-div .title_details_list {
+        font-size: 22px;
+    }
+    .border_style_login {
+        width: 100%;
+    }
+    .last_seen {
+        margin-bottom: 30px;
+    }
+    .password_change,
+    .password_change_save {
+        width: 100%;
+    }
+    .bt_item_edit {
+        margin: 0;
     }
 }
