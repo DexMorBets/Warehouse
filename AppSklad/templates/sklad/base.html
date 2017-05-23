@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" manifest="default.appcache">
     <head>
         <title>Warehouse</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -91,7 +91,6 @@
             <div class="KW_progressBar">
             </div>
 	    </div>
-        <script type="text/javascript">$('a').live('click',function(e) { e.preventDefault(); window.location = $(this).attr('href'); });</script>
 {#        <script src="{% static "js/jquery-ui.min.js" %}" async></script>#}
         <script src="{% static "js/Own/min/scrollIndicator.js" %}" async></script>
         <script src="{% static "js/Own/min/currentPage.js" %}" async></script>

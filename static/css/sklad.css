@@ -1802,6 +1802,11 @@ td i.fa-tint {
     font-size: 20px;
 }
 
+.newdet .cd-dropdown,
+.cd-select {
+    width: 240px;
+}
+
 
 /*-----------------------------------Кастомизированный селект-----------------------------------*/
 
@@ -2465,5 +2470,27 @@ td i.fa-tint {
         bottom: 1px;
         position: relative;
         margin-left: 0;
+    }
+    .item_input_count {
+        width: 14%;
+    }
+    .btn_item_edit {
+        width: 100%;
+    }
+    .button_form .bt {
+        margin-top: 20px;
+    }
+    .newdet .cd-dropdown {
+        width: 210px;
+    }
+    .newdet label.trash i {
+        right: 12px;
+        top: 6px;
+    }
+    .detail_input_delete {
+        right: -2px;
+    }
+    .detail_input_delete_text {
+        top: -21px;
     }
 }
