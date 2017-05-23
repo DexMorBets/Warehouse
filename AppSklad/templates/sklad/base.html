@@ -76,6 +76,7 @@
             <div id="hellopreloader_preload"></div>
         </div>
         <script type="text/javascript">function fadeOutnojquery(a){a.style.opacity=1;var b=setInterval(function(){a.style.opacity=a.style.opacity-.05,a.style.opacity<=.05&&(clearInterval(b),hellopreloader.style.display="none")},10)}var hellopreloader=document.getElementById("hellopreloader_preload");window.onload=function(){setTimeout(function(){fadeOutnojquery(hellopreloader)},300)};</script>
+        <script src="{% static "js/jquery.tap.js" %}" defer></script>
         <div class="page-padd content">
             <div class="row content-block">
 {#            <script src="{% static "js/jquery-3.1.1.min.js" %}" defer></script>#}
@@ -90,7 +91,6 @@
 {#        <script src="{% static "js/jquery-ui.min.js" %}" async></script>#}
         <script src="{% static "js/Own/min/scrollIndicator.js" %}" async></script>
         <script src="{% static "js/Own/min/currentPage.js" %}" async></script>
-        <script src="{% static "js/jquery.tap.js" %}" defer></script>
         <script src="{% static "js/Own/min/showMenu.js" %}" defer></script>
 {#        <script src="{% static "js/Own/min/page/base.js" %}" async></script>#}
     </body>

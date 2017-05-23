@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(document).on('click', 'i.fa-sliders', function () {
+    $(document).on('tap', 'i.fa-sliders', function () {
         $(this).parent().parent().find($('.category_delete')).add($(this).parent().parent().find($('.category_add'))).animate({width:'toggle'},350);
 
         $(this).parent().parent().find($('.category_delete')).mouseenter(function () {
