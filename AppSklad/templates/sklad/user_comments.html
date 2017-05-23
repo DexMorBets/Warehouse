@@ -15,7 +15,7 @@
         {% if comments %}
             {% csrf_token %}
             {% for comment in comments %}
-                <div class="row edit_div">
+                <div class="row edit_div comment_published_block">
                     <div class="main_item_edit comment_published clearfix">
                         <a href="{% url 'user_profile' username=comment.author__username %}">
                             <div class="comment_author">

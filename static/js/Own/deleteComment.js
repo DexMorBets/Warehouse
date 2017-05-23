@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('.span-comment-delete').click(function () {
-        $(this).toggleClass('fa fa-times');
         $(this).parent().find($('.comment_delete')).animate({width:'toggle'},350);
         $(this).parent().find($('.comment_delete')).mouseenter(function () {
             $(this).find($('.category_delete_text')).html('<i class="fa fa-trash-o" aria-hidden="true"></i>');

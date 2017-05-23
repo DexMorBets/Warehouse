@@ -50,10 +50,10 @@
                 <p><span class="title_details_list">Состоит из деталей:</span></p>
             </div>
             {% for detail in itemdetails %}
-                <div>
+                <div class="item-detail">
 {#                    <div style="background-color: {{ detail.detail.color.code }}" class="color_label_edit_item"></div>#}
                     {% if detail.detail__color__code %}
-                        <i style="color: {{ detail.detail__color__code }}; margin-left: 5px; font-size: 20px;" class="fa fa-tint" aria-hidden="true"></i>
+                        <i style="color: {{ detail.detail__color__code }};" class="fa fa-tint" aria-hidden="true"></i>
                     {% endif %}
                     <div class="tr_detail_item">
                         <p>

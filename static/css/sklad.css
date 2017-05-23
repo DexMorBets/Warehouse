@@ -1696,8 +1696,15 @@ i .fa-tint {
     font-size: 20px;
 }
 
+.item-detail i.fa
 .main_item_edit i.fa-tint {
     left: 35px;
+    top: 6px;
+    position: absolute;
+}
+
+.item-detail i.fa-tint {
+    right: 73px;
     top: 6px;
     position: absolute;
 }
@@ -1789,6 +1796,10 @@ td i.fa-tint {
 .profile .cd-dropdown, .cd-select,
 .profile .cd-dropdown ul li span {
     width: 270px;
+}
+.item-detail i.fa {
+    margin-left: 5px;
+    font-size: 20px;
 }
 
 
@@ -2198,6 +2209,7 @@ td i.fa-tint {
     .hide_button,
     .publish_button {
         width: auto;
+        margin: 20px auto 0 auto;
     }
     .tr_detail_item strong,
     .tr_detail strong {
@@ -2369,5 +2381,89 @@ td i.fa-tint {
     }
     .butt-row .main_l:last-child {
         margin-bottom: 0;
+    }
+    .image {
+        width: 100%;
+        max-width: none;
+    }
+    .item-detail .tr_detail_item span {
+        font-size: 20px;
+    }
+    .item-detail i.fa-tint {
+        right: 0;
+    }
+    .comment {
+        margin-top: 30px;
+    }
+    .comment_edit {
+        max-width: 200px;
+    }
+    .comment_send {
+        width: 32%;
+    }
+    .comment_author {
+        width: 80px;
+        border-right: 2px solid rgb(239, 239, 239);
+    }
+    .comment_avatar {
+        width: 45px;
+        height: 45px;
+        margin: 0 auto;
+    }
+    .comment_avatar_img {
+        width: 45px;
+        height: 45px;
+    }
+    .comment_text {
+        font-size: 14px;
+        width: 200px;
+    }
+    .comment_published {
+        padding: 30px 10px 50px 10px;
+    }
+    .span-comment-delete {
+        right: 238px;
+    }
+    .span-comment-delete:hover {
+        border-radius: 4px;
+    }
+    .comment_delete {
+        left: auto;
+        width: 40%;
+        border-radius: 0 4px 4px 0;
+    }
+    .comment_avatar .avatar_default_block {
+        width: 45px;
+        height: 45px;
+        margin-top: 0;
+    }
+    .comment_avatar .avatar_default_block i.fa-user-circle-o {
+        font-size: 45px;
+    }
+    #id_username_login,
+    #id_password_login {
+        width: 100%;
+    }
+    .inp,
+    #btn_login,
+    #btn_login1,
+    #div_btn_login,
+    #sign_up_btn {
+        width: 100%;
+    }
+    .warning-message {
+        margin-bottom: 10px;
+    }
+    .comment_published_block {
+        margin-top: 10px;
+    }
+    .comment_published_block .comment_published {
+        margin-bottom: 10px;
+    }
+    .panel-profit .symbol {
+        font-size: 18px;
+        bottom: 1px;
+        position: relative;
+        margin-left: 0;
     }
 }

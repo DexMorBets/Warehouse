@@ -8,7 +8,7 @@ $(document).ready(function () {
             $(this).parent().parent().find($('.category_delete_text')).html('Удалить')
         });
 
-        $(this).parent().parent().find($('.category_delete')).click(function () {
+        $(this).parent().parent().find($('.category_delete')).tap(function () {
             $(this).closest('.row').fadeOut('slow');
             $.ajax({
                     type: 'POST',
@@ -29,7 +29,7 @@ $(document).ready(function () {
         }).mouseleave(function () {
             $(this).parent().parent().find($('.category_add_text')).html('Добавить')
         });
-        $(this).parent().parent().find($('.category_add')).click(function () {
+        $(this).parent().parent().find($('.category_add')).tap(function () {
             category = $(this).parent().find('.items_title').text();
             loc = category + '/newitem/';
 
